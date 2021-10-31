@@ -1,5 +1,5 @@
 glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o: \
-  /Users/joshuayoung/desktop/base3/base/ext/glfw/src/osmesa_context.c \
+  /Users/joshuayoung/Desktop/base3/ext/glfw/src/osmesa_context.c \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/stdlib.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/Availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/AvailabilityVersions.h \
@@ -71,11 +71,11 @@ glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/secure/_common.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/secure/_string.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/assert.h \
-  /Users/joshuayoung/desktop/base3/base/ext/glfw/src/internal.h \
-  /Users/joshuayoung/desktop/base3/base/Assignment_3/build/glfw/src/glfw_config.h \
-  /Users/joshuayoung/desktop/base3/base/ext/glfw/src/../include/GLFW/glfw3.h \
+  /Users/joshuayoung/Desktop/base3/ext/glfw/src/internal.h \
+  /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw/src/glfw_config.h \
+  /Users/joshuayoung/Desktop/base3/ext/glfw/src/../include/GLFW/glfw3.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include/stddef.h \
-  /Users/joshuayoung/desktop/base3/base/ext/glfw/src/cocoa_platform.h \
+  /Users/joshuayoung/Desktop/base3/ext/glfw/src/cocoa_platform.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/dlfcn.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include/stdbool.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/Carbon.framework/Headers/Carbon.h \
@@ -766,12 +766,12 @@ glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/Carbon.framework/Frameworks/Help.framework/Headers/Help.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/Carbon.framework/Frameworks/Help.framework/Headers/AppleHelp.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/Carbon.framework/Frameworks/ImageCapture.framework/Headers/ImageCapture.h \
-  /Users/joshuayoung/desktop/base3/base/ext/glfw/src/posix_thread.h \
+  /Users/joshuayoung/Desktop/base3/ext/glfw/src/posix_thread.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/pthread.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/pthread/sched.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/pthread/pthread_impl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/pthread/qos.h \
-  /Users/joshuayoung/desktop/base3/base/ext/glfw/src/cocoa_joystick.h \
+  /Users/joshuayoung/Desktop/base3/ext/glfw/src/cocoa_joystick.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOCFPlugIn.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFPlugInCOM.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/hid/IOHIDLib.h \
@@ -791,7 +791,7 @@ glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/hid/IOHIDUsageTables.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/hid/IOHIDValue.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/hid/IOHIDTransaction.h \
-  /Users/joshuayoung/desktop/base3/base/ext/glfw/src/nsgl_context.h \
+  /Users/joshuayoung/Desktop/base3/ext/glfw/src/nsgl_context.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include/stdatomic.h \
-  /Users/joshuayoung/desktop/base3/base/ext/glfw/src/egl_context.h \
-  /Users/joshuayoung/desktop/base3/base/ext/glfw/src/osmesa_context.h
+  /Users/joshuayoung/Desktop/base3/ext/glfw/src/egl_context.h \
+  /Users/joshuayoung/Desktop/base3/ext/glfw/src/osmesa_context.h

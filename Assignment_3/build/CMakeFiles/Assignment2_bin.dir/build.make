@@ -53,10 +53,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/joshuayoung/desktop/base3/base/Assignment_3
+CMAKE_SOURCE_DIR = /Users/joshuayoung/Desktop/base3/assignment_3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/joshuayoung/desktop/base3/base/Assignment_3/build
+CMAKE_BINARY_DIR = /Users/joshuayoung/Desktop/base3/assignment_3/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Assignment2_bin.dir/depend.make
@@ -72,30 +72,30 @@ include CMakeFiles/Assignment2_bin.dir/flags.make
 CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o: CMakeFiles/Assignment2_bin.dir/flags.make
 CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o: ../src/Helpers.cpp
 CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o: CMakeFiles/Assignment2_bin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/joshuayoung/desktop/base3/base/Assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o -MF CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o.d -o CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o -c /Users/joshuayoung/desktop/base3/base/Assignment_3/src/Helpers.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o -MF CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o.d -o CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o -c /Users/joshuayoung/Desktop/base3/assignment_3/src/Helpers.cpp
 
 CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/joshuayoung/desktop/base3/base/Assignment_3/src/Helpers.cpp > CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/joshuayoung/Desktop/base3/assignment_3/src/Helpers.cpp > CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.i
 
 CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/joshuayoung/desktop/base3/base/Assignment_3/src/Helpers.cpp -o CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/joshuayoung/Desktop/base3/assignment_3/src/Helpers.cpp -o CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.s
 
 CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: CMakeFiles/Assignment2_bin.dir/flags.make
 CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp
 CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: CMakeFiles/Assignment2_bin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/joshuayoung/desktop/base3/base/Assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Assignment2_bin.dir/src/main.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Assignment2_bin.dir/src/main.cpp.o -MF CMakeFiles/Assignment2_bin.dir/src/main.cpp.o.d -o CMakeFiles/Assignment2_bin.dir/src/main.cpp.o -c /Users/joshuayoung/desktop/base3/base/Assignment_3/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Assignment2_bin.dir/src/main.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Assignment2_bin.dir/src/main.cpp.o -MF CMakeFiles/Assignment2_bin.dir/src/main.cpp.o.d -o CMakeFiles/Assignment2_bin.dir/src/main.cpp.o -c /Users/joshuayoung/Desktop/base3/assignment_3/src/main.cpp
 
 CMakeFiles/Assignment2_bin.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Assignment2_bin.dir/src/main.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/joshuayoung/desktop/base3/base/Assignment_3/src/main.cpp > CMakeFiles/Assignment2_bin.dir/src/main.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/joshuayoung/Desktop/base3/assignment_3/src/main.cpp > CMakeFiles/Assignment2_bin.dir/src/main.cpp.i
 
 CMakeFiles/Assignment2_bin.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Assignment2_bin.dir/src/main.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/joshuayoung/desktop/base3/base/Assignment_3/src/main.cpp -o CMakeFiles/Assignment2_bin.dir/src/main.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/joshuayoung/Desktop/base3/assignment_3/src/main.cpp -o CMakeFiles/Assignment2_bin.dir/src/main.cpp.s
 
 # Object files for target Assignment2_bin
 Assignment2_bin_OBJECTS = \
@@ -110,7 +110,7 @@ Assignment2_bin: CMakeFiles/Assignment2_bin.dir/src/main.cpp.o
 Assignment2_bin: CMakeFiles/Assignment2_bin.dir/build.make
 Assignment2_bin: libglfw3.a
 Assignment2_bin: CMakeFiles/Assignment2_bin.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/joshuayoung/desktop/base3/base/Assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Assignment2_bin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Assignment2_bin"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Assignment2_bin.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -122,6 +122,6 @@ CMakeFiles/Assignment2_bin.dir/clean:
 .PHONY : CMakeFiles/Assignment2_bin.dir/clean
 
 CMakeFiles/Assignment2_bin.dir/depend:
-	cd /Users/joshuayoung/desktop/base3/base/Assignment_3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/joshuayoung/desktop/base3/base/Assignment_3 /Users/joshuayoung/desktop/base3/base/Assignment_3 /Users/joshuayoung/desktop/base3/base/Assignment_3/build /Users/joshuayoung/desktop/base3/base/Assignment_3/build /Users/joshuayoung/desktop/base3/base/Assignment_3/build/CMakeFiles/Assignment2_bin.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/joshuayoung/Desktop/base3/assignment_3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/joshuayoung/Desktop/base3/assignment_3 /Users/joshuayoung/Desktop/base3/assignment_3 /Users/joshuayoung/Desktop/base3/assignment_3/build /Users/joshuayoung/Desktop/base3/assignment_3/build /Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles/Assignment2_bin.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Assignment2_bin.dir/depend
 

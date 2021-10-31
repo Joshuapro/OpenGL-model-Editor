@@ -29,6 +29,8 @@ VertexBufferObject VBO;
 //Eigen::MatrixXf V(2,3);
 std::vector<glm::vec2> V(3);
 
+
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -212,6 +214,8 @@ int main(void)
 
         // Draw a triangle
         glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        
 
         // Swap front and back buffers
         glfwSwapBuffers(window);

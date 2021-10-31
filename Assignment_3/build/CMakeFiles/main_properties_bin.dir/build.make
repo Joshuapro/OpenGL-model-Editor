@@ -53,10 +53,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/joshuayoung/desktop/base3/base/Assignment_3
+CMAKE_SOURCE_DIR = /Users/joshuayoung/Desktop/base3/assignment_3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/joshuayoung/desktop/base3/base/Assignment_3/build
+CMAKE_BINARY_DIR = /Users/joshuayoung/Desktop/base3/assignment_3/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main_properties_bin.dir/depend.make
@@ -72,30 +72,30 @@ include CMakeFiles/main_properties_bin.dir/flags.make
 CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o: CMakeFiles/main_properties_bin.dir/flags.make
 CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o: ../extra/main_properties.cpp
 CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o: CMakeFiles/main_properties_bin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/joshuayoung/desktop/base3/base/Assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o -MF CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o.d -o CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o -c /Users/joshuayoung/desktop/base3/base/Assignment_3/extra/main_properties.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o -MF CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o.d -o CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.o -c /Users/joshuayoung/Desktop/base3/assignment_3/extra/main_properties.cpp
 
 CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/joshuayoung/desktop/base3/base/Assignment_3/extra/main_properties.cpp > CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/joshuayoung/Desktop/base3/assignment_3/extra/main_properties.cpp > CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.i
 
 CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/joshuayoung/desktop/base3/base/Assignment_3/extra/main_properties.cpp -o CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/joshuayoung/Desktop/base3/assignment_3/extra/main_properties.cpp -o CMakeFiles/main_properties_bin.dir/extra/main_properties.cpp.s
 
 CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o: CMakeFiles/main_properties_bin.dir/flags.make
 CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o: ../src/Helpers.cpp
 CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o: CMakeFiles/main_properties_bin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/joshuayoung/desktop/base3/base/Assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o -MF CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o.d -o CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o -c /Users/joshuayoung/desktop/base3/base/Assignment_3/src/Helpers.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o -MF CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o.d -o CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o -c /Users/joshuayoung/Desktop/base3/assignment_3/src/Helpers.cpp
 
 CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/joshuayoung/desktop/base3/base/Assignment_3/src/Helpers.cpp > CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/joshuayoung/Desktop/base3/assignment_3/src/Helpers.cpp > CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.i
 
 CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/joshuayoung/desktop/base3/base/Assignment_3/src/Helpers.cpp -o CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/joshuayoung/Desktop/base3/assignment_3/src/Helpers.cpp -o CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.s
 
 # Object files for target main_properties_bin
 main_properties_bin_OBJECTS = \
@@ -110,7 +110,7 @@ main_properties_bin: CMakeFiles/main_properties_bin.dir/src/Helpers.cpp.o
 main_properties_bin: CMakeFiles/main_properties_bin.dir/build.make
 main_properties_bin: libglfw3.a
 main_properties_bin: CMakeFiles/main_properties_bin.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/joshuayoung/desktop/base3/base/Assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable main_properties_bin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable main_properties_bin"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main_properties_bin.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -122,6 +122,6 @@ CMakeFiles/main_properties_bin.dir/clean:
 .PHONY : CMakeFiles/main_properties_bin.dir/clean
 
 CMakeFiles/main_properties_bin.dir/depend:
-	cd /Users/joshuayoung/desktop/base3/base/Assignment_3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/joshuayoung/desktop/base3/base/Assignment_3 /Users/joshuayoung/desktop/base3/base/Assignment_3 /Users/joshuayoung/desktop/base3/base/Assignment_3/build /Users/joshuayoung/desktop/base3/base/Assignment_3/build /Users/joshuayoung/desktop/base3/base/Assignment_3/build/CMakeFiles/main_properties_bin.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/joshuayoung/Desktop/base3/assignment_3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/joshuayoung/Desktop/base3/assignment_3 /Users/joshuayoung/Desktop/base3/assignment_3 /Users/joshuayoung/Desktop/base3/assignment_3/build /Users/joshuayoung/Desktop/base3/assignment_3/build /Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles/main_properties_bin.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/main_properties_bin.dir/depend
 
