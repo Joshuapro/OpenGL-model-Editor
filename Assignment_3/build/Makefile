@@ -477,6 +477,30 @@ src/Helpers.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_depth_bin.dir/build.make CMakeFiles/main_depth_bin.dir/src/Helpers.cpp.s
 .PHONY : src/Helpers.cpp.s
 
+src/ebo.o: src/ebo.cpp.o
+.PHONY : src/ebo.o
+
+# target to build an object file
+src/ebo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Assignment2_bin.dir/build.make CMakeFiles/Assignment2_bin.dir/src/ebo.cpp.o
+.PHONY : src/ebo.cpp.o
+
+src/ebo.i: src/ebo.cpp.i
+.PHONY : src/ebo.i
+
+# target to preprocess a source file
+src/ebo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Assignment2_bin.dir/build.make CMakeFiles/Assignment2_bin.dir/src/ebo.cpp.i
+.PHONY : src/ebo.cpp.i
+
+src/ebo.s: src/ebo.cpp.s
+.PHONY : src/ebo.s
+
+# target to generate assembly for a file
+src/ebo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Assignment2_bin.dir/build.make CMakeFiles/Assignment2_bin.dir/src/ebo.cpp.s
+.PHONY : src/ebo.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -544,6 +568,9 @@ help:
 	@echo "... src/Helpers.o"
 	@echo "... src/Helpers.i"
 	@echo "... src/Helpers.s"
+	@echo "... src/ebo.o"
+	@echo "... src/ebo.i"
+	@echo "... src/ebo.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -79,7 +79,7 @@ public:
     void update(const std::vector<T>& array)
     {
       assert(id != 0);
-      assert(!array.empty()); 
+      // assert(!array.empty()); 
       glBindBuffer(GL_ARRAY_BUFFER, id);
       glBufferData(GL_ARRAY_BUFFER, sizeof(T) * array.size(), array.data(), GL_DYNAMIC_DRAW);
       cols = array.size();

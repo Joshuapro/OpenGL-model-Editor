@@ -2,6 +2,7 @@
 
 // OpenGL Helpers to reduce the clutter
 #include "Helpers.h"
+#include "ebo.h"
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
@@ -18,7 +19,7 @@
 #include <glm/vec4.hpp> // glm::vec4
 #include <glm/mat4x4.hpp> // glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
-
+#include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 // Timer
 #include <chrono>
 
@@ -27,7 +28,18 @@ VertexBufferObject VBO;
 
 // Contains the vertex positions
 //Eigen::MatrixXf V(2,3);
-std::vector<glm::vec2> V(3);
+const unsigned int width = 640;
+const unsigned int height = 480;
+
+std::vector<glm::vec3> V;
+
+glm::mat4 model = glm::mat4(1.0f);
+glm::mat4 view = glm::mat4(1.0f);
+glm::mat4 proj = glm::mat4(1.0f);
+float hori = 0;
+float verti = 0;
+float r = 1;
+
 
 
 
@@ -36,49 +48,45 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-{
-    // Get the position of the mouse in the window
-    double xpos, ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
+// void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+// {
+//     // Get the position of the mouse in the window
+//     double xpos, ypos;
+//     glfwGetCursorPos(window, &xpos, &ypos);
+//     // Get the size of the window
+//     int width, height;
+//     glfwGetWindowSize(window, &width, &height);
+//     // Convert screen position to world coordinates
+//     double xworld = ((xpos/double(width))*2)-1;
+//     double yworld = (((height-1-ypos)/double(height))*2)-1; // NOTE: y axis is flipped in glfw
+//     // Update the position of the first vertex if the left button is pressed
+//     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+//         V[0] = glm::vec2(xworld, yworld);
+//     // Upload the change to the GPU
+//     VBO.update(V);
+// }
 
-    // Get the size of the window
-    int width, height;
-    glfwGetWindowSize(window, &width, &height);
+// void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+// {
+//     // Update the position of the first vertex if the keys 1,2, or 3 are pressed
+//     switch (key)
+//     {
+//         case  GLFW_KEY_1:
+//             V[0] = glm::vec2(-0.5,  0.5);
+//             break;
+//         case GLFW_KEY_2:
+//             V[0] = glm::vec2(0,  0.5);
+//             break;
+//         case  GLFW_KEY_3:
+//             V[0] = glm::vec2(0.5,  0.5);
+//             break;
+//         default:
+//             break;
+//     }
 
-    // Convert screen position to world coordinates
-    double xworld = ((xpos/double(width))*2)-1;
-    double yworld = (((height-1-ypos)/double(height))*2)-1; // NOTE: y axis is flipped in glfw
-
-    // Update the position of the first vertex if the left button is pressed
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-        V[0] = glm::vec2(xworld, yworld);
-
-    // Upload the change to the GPU
-    VBO.update(V);
-}
-
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    // Update the position of the first vertex if the keys 1,2, or 3 are pressed
-    switch (key)
-    {
-        case  GLFW_KEY_1:
-            V[0] = glm::vec2(-0.5,  0.5);
-            break;
-        case GLFW_KEY_2:
-            V[0] = glm::vec2(0,  0.5);
-            break;
-        case  GLFW_KEY_3:
-            V[0] = glm::vec2(0.5,  0.5);
-            break;
-        default:
-            break;
-    }
-
-    // Upload the change to the GPU
-    VBO.update(V);
-}
+//     // Upload the change to the GPU
+//     VBO.update(V);
+// }
 
 int main(void)
 {
@@ -102,7 +110,7 @@ int main(void)
 #endif
 
     // Create a windowed mode window and its OpenGL context
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -141,14 +149,15 @@ int main(void)
     VAO.init();
     VAO.bind();
 
+    EBO ebo;
+    ebo.init();
+    ebo.bind();
+
     // Initialize the VBO with the vertices data
     // A VBO is a data container that lives in the GPU memory
     VBO.init();
 
-    V.resize(3);
-    V[0] = glm::vec2(0,  0.5);
-    V[1] = glm::vec2(-0.5, -0.5);
-    V[2] = glm::vec2(0.5, -0.5);
+    V.resize(1);
     VBO.update(V);
 
     // Initialize the OpenGL Program
@@ -157,14 +166,17 @@ int main(void)
     Program program;
     const GLchar* vertex_shader =
             "#version 150 core\n"
-                    "in vec2 position;"
+                    "in vec3 position;"
+                    "uniform mat4 view;"
+                    "uniform mat4 model;"
+                    "uniform mat4 proj;"
                     "void main()"
                     "{"
-                    "    gl_Position = vec4(position, 0.0, 1.0);"
+                    "    gl_Position = proj * view * model * vec4(position, 1.0);"
                     "}";
     const GLchar* fragment_shader =
             "#version 150 core\n"
-                    "out vec4 outColor;"
+                    "out vec4 outColor;" 
                     "uniform vec3 triangleColor;"
                     "void main()"
                     "{"
@@ -186,19 +198,22 @@ int main(void)
     auto t_start = std::chrono::high_resolution_clock::now();
 
     // Register the keyboard callback
-    glfwSetKeyCallback(window, key_callback);
+    // glfwSetKeyCallback(window, key_callback);
 
     // Register the mouse callback
-    glfwSetMouseButtonCallback(window, mouse_button_callback);
+    // glfwSetMouseButtonCallback(window, mouse_button_callback);
 
     // Update viewport
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    glEnable(GL_DEPTH_TEST);
 
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
     {
         // Bind your VAO (not necessary if you have only one)
         VAO.bind();
+        ebo.bind();
 
         // Bind your program
         program.bind();
@@ -206,16 +221,72 @@ int main(void)
         // Set the uniform value depending on the time difference
         auto t_now = std::chrono::high_resolution_clock::now();
         float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
-        glUniform3f(program.uniform("triangleColor"), (float)(sin(time * 4.0f) + 1.0f) / 2.0f, 0.0f, 0.0f);
+        // glUniform3f(program.uniform("triangleColor"), (float)(sin(time * 4.0f) + 1.0f) / 2.0f, 0.0f, 0.0f);
 
         // Clear the framebuffer
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        // Draw a triangle
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // glClear(GL_COLOR_BUFFER_BIT);
         
+        // glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = glm::mat4(1.0f);
+        glm::mat4 proj = glm::mat4(1.0f);
+
+
+        // view = glm::scale(glm::mat4(1.f), glm::vec3(r, r, 1.f));
+        view = glm::translate(view,glm::vec3(verti,hori,0));
+        // proj = glm::perspective(glm::radians(45.0f),(float)(width/height), 0.1f, 100.0f);
+        model = glm::rotate(model,glm::radians(10.5f),glm::vec3(1.0f,0.0f,0.0f));
+        model = glm::rotate(model,glm::radians(17.5f),glm::vec3(0.0f,1.0f,0.0f));
+
+        glUniformMatrix4fv(program.uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(program.uniform("proj"), 1, GL_FALSE, glm::value_ptr(proj));
+
+        // glUniform1d(uniID,0.5);
+        // view = glm::translate(view,glm::vec3(0.0f,0.5f,-2.0f));
+        // proj = glm::perspective(glm::radians(45.0f), (float)(640/680),0.1f, 100);
+
+        std::vector<glm::vec3> vertextPosition = {
+            glm::vec3(-0.5,0.5,-0.5),
+            glm::vec3(-0.5,0.5,0.5),
+            glm::vec3(0.5,0.5,-0.5),
+            glm::vec3(0.5,0.5,0.5),
+            glm::vec3(-0.5,-0.5,-0.5),
+            glm::vec3(-0.5,-0.5,0.5),
+            glm::vec3(0.5,-0.5,-0.5),
+            glm::vec3(0.5,-0.5,0.5),
+        };
+
+         std::vector<GLuint> indices = {
+            0,1,2,
+            1,2,3,
+ 
+            4,5,6,
+            5,6,7,
+     
+            0,1,5,
+            0,4,5,
+        
+            2,3,7,
+            2,6,7,
+      
+            0,2,6,
+            0,4,6,
+           
+            1,5,7,
+            1,3,7
+        };
+ 
+        VBO.update(vertextPosition);
+        ebo.update(indices);
+
+        glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
+
+
 
         // Swap front and back buffers
         glfwSwapBuffers(window);
@@ -228,6 +299,7 @@ int main(void)
     program.free();
     VAO.free();
     VBO.free();
+    ebo.free();
 
     // Deallocate glfw internals
     glfwTerminate();
