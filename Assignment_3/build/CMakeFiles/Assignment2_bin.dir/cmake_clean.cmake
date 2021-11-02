@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "Assignment2_bin.pdb"
   "CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o"
   "CMakeFiles/Assignment2_bin.dir/src/Helpers.cpp.o.d"
+  "CMakeFiles/Assignment2_bin.dir/src/cube.cpp.o"
+  "CMakeFiles/Assignment2_bin.dir/src/cube.cpp.o.d"
   "CMakeFiles/Assignment2_bin.dir/src/ebo.cpp.o"
   "CMakeFiles/Assignment2_bin.dir/src/ebo.cpp.o.d"
   "CMakeFiles/Assignment2_bin.dir/src/main.cpp.o"

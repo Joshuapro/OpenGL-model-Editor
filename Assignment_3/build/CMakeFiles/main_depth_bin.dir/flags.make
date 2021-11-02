@@ -4,7 +4,7 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/joshuayoung/Desktop/base3/assignment_3/src -I/Users/joshuayoung/Desktop/base3/assignment_3/../ext/glm -I/Users/joshuayoung/Desktop/base3/assignment_3/../ext/glfw/include -I/Users/joshuayoung/Desktop/base3/ext/glfw/include
+CXX_INCLUDES = -I/Users/joshuayoung/desktop/base3/Assignment_3/src -I/Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm -I/Users/joshuayoung/desktop/base3/Assignment_3/../ext/glfw/include -I/Users/joshuayoung/desktop/base3/ext/glfw/include
 
 CXX_FLAGS =  -std=c++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk   -Wno-deprecated-declarations
 

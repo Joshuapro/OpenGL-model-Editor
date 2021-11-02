@@ -46,12 +46,12 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.21.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.21.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.21.3/CMakeSystem.cmake"
-  "/Users/joshuayoung/Desktop/base3/ext/glfw/CMake/cmake_uninstall.cmake.in"
-  "/Users/joshuayoung/Desktop/base3/ext/glfw/CMake/glfw3.pc.in"
-  "/Users/joshuayoung/Desktop/base3/ext/glfw/CMake/glfw3Config.cmake.in"
-  "/Users/joshuayoung/Desktop/base3/ext/glfw/CMakeLists.txt"
-  "/Users/joshuayoung/Desktop/base3/ext/glfw/src/CMakeLists.txt"
-  "/Users/joshuayoung/Desktop/base3/ext/glfw/src/glfw_config.h.in"
+  "/Users/joshuayoung/desktop/base3/ext/glfw/CMake/cmake_uninstall.cmake.in"
+  "/Users/joshuayoung/desktop/base3/ext/glfw/CMake/glfw3.pc.in"
+  "/Users/joshuayoung/desktop/base3/ext/glfw/CMake/glfw3Config.cmake.in"
+  "/Users/joshuayoung/desktop/base3/ext/glfw/CMakeLists.txt"
+  "/Users/joshuayoung/desktop/base3/ext/glfw/src/CMakeLists.txt"
+  "/Users/joshuayoung/desktop/base3/ext/glfw/src/glfw_config.h.in"
   )
 
 # The corresponding makefile is:

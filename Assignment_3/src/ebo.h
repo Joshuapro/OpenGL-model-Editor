@@ -17,7 +17,6 @@ public:
     GLuint rows;
     GLuint cols;
     
-	// Constructor that generates a Elements Buffer Object and links it to indices
 	EBO();
 
     void init();

@@ -1,8 +1,8 @@
 glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o: \
-  /Users/joshuayoung/Desktop/base3/ext/glfw/src/cocoa_init.m \
-  /Users/joshuayoung/Desktop/base3/ext/glfw/src/internal.h \
-  /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw/src/glfw_config.h \
-  /Users/joshuayoung/Desktop/base3/ext/glfw/src/../include/GLFW/glfw3.h \
+  /Users/joshuayoung/desktop/base3/ext/glfw/src/cocoa_init.m \
+  /Users/joshuayoung/desktop/base3/ext/glfw/src/internal.h \
+  /Users/joshuayoung/desktop/base3/Assignment_3/build/glfw/src/glfw_config.h \
+  /Users/joshuayoung/desktop/base3/ext/glfw/src/../include/GLFW/glfw3.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include/stdint.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/stdint.h \
@@ -31,7 +31,7 @@ glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/sys/_types/_uintptr_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/_types/_intmax_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/_types/_uintmax_t.h \
-  /Users/joshuayoung/Desktop/base3/ext/glfw/src/cocoa_platform.h \
+  /Users/joshuayoung/desktop/base3/ext/glfw/src/cocoa_platform.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/dlfcn.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include/stdbool.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/Availability.h \
@@ -1298,12 +1298,12 @@ glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/CoreData.framework/Headers/NSPersistentCloudKitContainerEvent.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/CoreData.framework/Headers/NSPersistentCloudKitContainerEventRequest.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/CoreData.framework/Headers/NSCoreDataCoreSpotlightDelegate.h \
-  /Users/joshuayoung/Desktop/base3/ext/glfw/src/posix_thread.h \
+  /Users/joshuayoung/desktop/base3/ext/glfw/src/posix_thread.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/pthread.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/pthread/sched.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/pthread/pthread_impl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/pthread/qos.h \
-  /Users/joshuayoung/Desktop/base3/ext/glfw/src/cocoa_joystick.h \
+  /Users/joshuayoung/desktop/base3/ext/glfw/src/cocoa_joystick.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOCFPlugIn.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFPlugInCOM.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/hid/IOHIDLib.h \
@@ -1323,8 +1323,8 @@ glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/hid/IOHIDUsageTables.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/hid/IOHIDValue.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/System/Library/Frameworks/IOKit.framework/Headers/hid/IOHIDTransaction.h \
-  /Users/joshuayoung/Desktop/base3/ext/glfw/src/nsgl_context.h \
+  /Users/joshuayoung/desktop/base3/ext/glfw/src/nsgl_context.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include/stdatomic.h \
-  /Users/joshuayoung/Desktop/base3/ext/glfw/src/egl_context.h \
-  /Users/joshuayoung/Desktop/base3/ext/glfw/src/osmesa_context.h \
+  /Users/joshuayoung/desktop/base3/ext/glfw/src/egl_context.h \
+  /Users/joshuayoung/desktop/base3/ext/glfw/src/osmesa_context.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/crt_externs.h

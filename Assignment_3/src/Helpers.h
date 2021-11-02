@@ -130,3 +130,9 @@ public:
   GLuint create_shader_helper(GLint type, const std::string &shader_string);
 
 };
+
+
+class Bunny{
+public:
+    Bunny(std::string url);
+};

@@ -57,10 +57,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/joshuayoung/Desktop/base3/assignment_3
+CMAKE_SOURCE_DIR = /Users/joshuayoung/desktop/base3/Assignment_3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/joshuayoung/Desktop/base3/assignment_3/build
+CMAKE_BINARY_DIR = /Users/joshuayoung/desktop/base3/Assignment_3/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/local/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles /Users/joshuayoung/Desktop/base3/assignment_3/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/joshuayoung/desktop/base3/Assignment_3/build/CMakeFiles /Users/joshuayoung/desktop/base3/Assignment_3/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/joshuayoung/desktop/base3/Assignment_3/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -477,6 +477,30 @@ src/Helpers.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_depth_bin.dir/build.make CMakeFiles/main_depth_bin.dir/src/Helpers.cpp.s
 .PHONY : src/Helpers.cpp.s
 
+src/cube.o: src/cube.cpp.o
+.PHONY : src/cube.o
+
+# target to build an object file
+src/cube.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Assignment2_bin.dir/build.make CMakeFiles/Assignment2_bin.dir/src/cube.cpp.o
+.PHONY : src/cube.cpp.o
+
+src/cube.i: src/cube.cpp.i
+.PHONY : src/cube.i
+
+# target to preprocess a source file
+src/cube.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Assignment2_bin.dir/build.make CMakeFiles/Assignment2_bin.dir/src/cube.cpp.i
+.PHONY : src/cube.cpp.i
+
+src/cube.s: src/cube.cpp.s
+.PHONY : src/cube.s
+
+# target to generate assembly for a file
+src/cube.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Assignment2_bin.dir/build.make CMakeFiles/Assignment2_bin.dir/src/cube.cpp.s
+.PHONY : src/cube.cpp.s
+
 src/ebo.o: src/ebo.cpp.o
 .PHONY : src/ebo.o
 
@@ -568,6 +592,9 @@ help:
 	@echo "... src/Helpers.o"
 	@echo "... src/Helpers.i"
 	@echo "... src/Helpers.s"
+	@echo "... src/cube.o"
+	@echo "... src/cube.i"
+	@echo "... src/cube.s"
 	@echo "... src/ebo.o"
 	@echo "... src/ebo.i"
 	@echo "... src/ebo.s"

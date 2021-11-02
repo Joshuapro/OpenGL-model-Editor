@@ -53,10 +53,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/joshuayoung/Desktop/base3/assignment_3
+CMAKE_SOURCE_DIR = /Users/joshuayoung/desktop/base3/Assignment_3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/joshuayoung/Desktop/base3/assignment_3/build
+CMAKE_BINARY_DIR = /Users/joshuayoung/desktop/base3/Assignment_3/build
 
 # Utility rule file for uninstall.
 
@@ -67,7 +67,7 @@ include glfw/CMakeFiles/uninstall.dir/compiler_depend.make
 include glfw/CMakeFiles/uninstall.dir/progress.make
 
 glfw/CMakeFiles/uninstall:
-	cd /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw && /Applications/CMake.app/Contents/bin/cmake -P /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw/cmake_uninstall.cmake
+	cd /Users/joshuayoung/desktop/base3/Assignment_3/build/glfw && /Applications/CMake.app/Contents/bin/cmake -P /Users/joshuayoung/desktop/base3/Assignment_3/build/glfw/cmake_uninstall.cmake
 
 uninstall: glfw/CMakeFiles/uninstall
 uninstall: glfw/CMakeFiles/uninstall.dir/build.make
@@ -78,10 +78,10 @@ glfw/CMakeFiles/uninstall.dir/build: uninstall
 .PHONY : glfw/CMakeFiles/uninstall.dir/build
 
 glfw/CMakeFiles/uninstall.dir/clean:
-	cd /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw && $(CMAKE_COMMAND) -P CMakeFiles/uninstall.dir/cmake_clean.cmake
+	cd /Users/joshuayoung/desktop/base3/Assignment_3/build/glfw && $(CMAKE_COMMAND) -P CMakeFiles/uninstall.dir/cmake_clean.cmake
 .PHONY : glfw/CMakeFiles/uninstall.dir/clean
 
 glfw/CMakeFiles/uninstall.dir/depend:
-	cd /Users/joshuayoung/Desktop/base3/assignment_3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/joshuayoung/Desktop/base3/assignment_3 /Users/joshuayoung/Desktop/base3/ext/glfw /Users/joshuayoung/Desktop/base3/assignment_3/build /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/joshuayoung/desktop/base3/Assignment_3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/joshuayoung/desktop/base3/Assignment_3 /Users/joshuayoung/desktop/base3/ext/glfw /Users/joshuayoung/desktop/base3/Assignment_3/build /Users/joshuayoung/desktop/base3/Assignment_3/build/glfw /Users/joshuayoung/desktop/base3/Assignment_3/build/glfw/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : glfw/CMakeFiles/uninstall.dir/depend
 

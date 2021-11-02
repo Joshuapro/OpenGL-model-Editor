@@ -3,6 +3,9 @@
 // OpenGL Helpers to reduce the clutter
 #include "Helpers.h"
 #include "ebo.h"
+#include "cube.h"
+// #include "Bunny.h"
+
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
@@ -22,6 +25,13 @@
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 // Timer
 #include <chrono>
+#include <iostream>
+#include <exception>
+
+std::vector<glm::vec3> vertextPosition;
+std::vector<GLuint> indices;
+std::vector<Cube> cubes;
+std::vector<Bunny> Bunnies;
 
 // VertexBufferObject wrapper
 VertexBufferObject VBO;
@@ -66,27 +76,31 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 //     VBO.update(V);
 // }
 
-// void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-// {
-//     // Update the position of the first vertex if the keys 1,2, or 3 are pressed
-//     switch (key)
-//     {
-//         case  GLFW_KEY_1:
-//             V[0] = glm::vec2(-0.5,  0.5);
-//             break;
-//         case GLFW_KEY_2:
-//             V[0] = glm::vec2(0,  0.5);
-//             break;
-//         case  GLFW_KEY_3:
-//             V[0] = glm::vec2(0.5,  0.5);
-//             break;
-//         default:
-//             break;
-//     }
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    // Update the position of the first vertex if the keys 1,2, or 3 are pressed
+    switch (key)
+    {
+        case GLFW_KEY_1:
+            if (action == GLFW_PRESS){
+                Cube hi;
+                cubes.push_back(hi);
+            }
+            break;
+        case GLFW_KEY_2:
+            if (action == GLFW_PRESS){
+                Bunny bun("/Users/joshuayoung/Desktop/base3/Assignment_3/data/bunny.off");
+                Bunnies.push_back(bun);
+                std::cout << Bunnies.size() << std::endl;
+            }
+            break;
+        default:
+            break;
+    }
 
-//     // Upload the change to the GPU
-//     VBO.update(V);
-// }
+    // Upload the change to the GPU
+    VBO.update(V);
+}
 
 int main(void)
 {
@@ -198,7 +212,7 @@ int main(void)
     auto t_start = std::chrono::high_resolution_clock::now();
 
     // Register the keyboard callback
-    // glfwSetKeyCallback(window, key_callback);
+    glfwSetKeyCallback(window, key_callback);
 
     // Register the mouse callback
     // glfwSetMouseButtonCallback(window, mouse_button_callback);
@@ -248,43 +262,36 @@ int main(void)
         // view = glm::translate(view,glm::vec3(0.0f,0.5f,-2.0f));
         // proj = glm::perspective(glm::radians(45.0f), (float)(640/680),0.1f, 100);
 
-        std::vector<glm::vec3> vertextPosition = {
-            glm::vec3(-0.5,0.5,-0.5),
-            glm::vec3(-0.5,0.5,0.5),
-            glm::vec3(0.5,0.5,-0.5),
-            glm::vec3(0.5,0.5,0.5),
-            glm::vec3(-0.5,-0.5,-0.5),
-            glm::vec3(-0.5,-0.5,0.5),
-            glm::vec3(0.5,-0.5,-0.5),
-            glm::vec3(0.5,-0.5,0.5),
-        };
 
-         std::vector<GLuint> indices = {
-            0,1,2,
-            1,2,3,
- 
-            4,5,6,
-            5,6,7,
-     
-            0,1,5,
-            0,4,5,
-        
-            2,3,7,
-            2,6,7,
-      
-            0,2,6,
-            0,4,6,
-           
-            1,5,7,
-            1,3,7
-        };
+
+
+
+
+        //cubes
+        vertextPosition = {};
+        indices = {};
+        for(int i = 0; i < cubes.size(); i++){
+            for(int j = 0; j < cubes[i].pos.size(); j++){
+                vertextPosition.push_back(cubes[i].pos[j]);
+            }
+            for(int j = 0; j < cubes[i].ind.size(); j++){
+                indices.push_back(cubes[i].ind[j]);
+            }
+        }
+
+
+
+        //bunny
+       
+
+
+
  
         VBO.update(vertextPosition);
         ebo.update(indices);
 
         glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-
 
 
 
@@ -305,3 +312,38 @@ int main(void)
     glfwTerminate();
     return 0;
 }
+
+
+
+
+
+        //  vertextPosition = {
+        //     glm::vec3(-0.5,0.5,-0.5),
+        //     glm::vec3(-0.5,0.5,0.5),
+        //     glm::vec3(0.5,0.5,-0.5),
+        //     glm::vec3(0.5,0.5,0.5),
+        //     glm::vec3(-0.5,-0.5,-0.5),
+        //     glm::vec3(-0.5,-0.5,0.5),
+        //     glm::vec3(0.5,-0.5,-0.5),
+        //     glm::vec3(0.5,-0.5,0.5),
+        // };
+
+        // indices = {
+        //     0,1,2,
+        //     1,2,3,
+ 
+        //     4,5,6,
+        //     5,6,7,
+     
+        //     0,1,5,
+        //     0,4,5,
+        
+        //     2,3,7,
+        //     2,6,7,
+      
+        //     0,2,6,
+        //     0,4,6,
+           
+        //     1,5,7,
+        //     1,3,7
+        // };

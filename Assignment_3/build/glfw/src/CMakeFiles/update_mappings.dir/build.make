@@ -53,10 +53,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/joshuayoung/Desktop/base3/assignment_3
+CMAKE_SOURCE_DIR = /Users/joshuayoung/desktop/base3/Assignment_3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/joshuayoung/Desktop/base3/assignment_3/build
+CMAKE_BINARY_DIR = /Users/joshuayoung/desktop/base3/Assignment_3/build
 
 # Utility rule file for update_mappings.
 
@@ -67,8 +67,8 @@ include glfw/src/CMakeFiles/update_mappings.dir/compiler_depend.make
 include glfw/src/CMakeFiles/update_mappings.dir/progress.make
 
 glfw/src/CMakeFiles/update_mappings:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/joshuayoung/Desktop/base3/assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Updating gamepad mappings from upstream repository"
-	cd /Users/joshuayoung/Desktop/base3/ext/glfw/src && /Applications/CMake.app/Contents/bin/cmake -P /Users/joshuayoung/Desktop/base3/ext/glfw/CMake/GenerateMappings.cmake mappings.h.in mappings.h
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/joshuayoung/desktop/base3/Assignment_3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Updating gamepad mappings from upstream repository"
+	cd /Users/joshuayoung/desktop/base3/ext/glfw/src && /Applications/CMake.app/Contents/bin/cmake -P /Users/joshuayoung/desktop/base3/ext/glfw/CMake/GenerateMappings.cmake mappings.h.in mappings.h
 
 update_mappings: glfw/src/CMakeFiles/update_mappings
 update_mappings: glfw/src/CMakeFiles/update_mappings.dir/build.make
@@ -79,10 +79,10 @@ glfw/src/CMakeFiles/update_mappings.dir/build: update_mappings
 .PHONY : glfw/src/CMakeFiles/update_mappings.dir/build
 
 glfw/src/CMakeFiles/update_mappings.dir/clean:
-	cd /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw/src && $(CMAKE_COMMAND) -P CMakeFiles/update_mappings.dir/cmake_clean.cmake
+	cd /Users/joshuayoung/desktop/base3/Assignment_3/build/glfw/src && $(CMAKE_COMMAND) -P CMakeFiles/update_mappings.dir/cmake_clean.cmake
 .PHONY : glfw/src/CMakeFiles/update_mappings.dir/clean
 
 glfw/src/CMakeFiles/update_mappings.dir/depend:
-	cd /Users/joshuayoung/Desktop/base3/assignment_3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/joshuayoung/Desktop/base3/assignment_3 /Users/joshuayoung/Desktop/base3/ext/glfw/src /Users/joshuayoung/Desktop/base3/assignment_3/build /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw/src /Users/joshuayoung/Desktop/base3/assignment_3/build/glfw/src/CMakeFiles/update_mappings.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/joshuayoung/desktop/base3/Assignment_3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/joshuayoung/desktop/base3/Assignment_3 /Users/joshuayoung/desktop/base3/ext/glfw/src /Users/joshuayoung/desktop/base3/Assignment_3/build /Users/joshuayoung/desktop/base3/Assignment_3/build/glfw/src /Users/joshuayoung/desktop/base3/Assignment_3/build/glfw/src/CMakeFiles/update_mappings.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : glfw/src/CMakeFiles/update_mappings.dir/depend
 

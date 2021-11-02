@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+using namespace std;
 
 void VertexArrayObject::init()
 {
@@ -186,3 +187,12 @@ void _check_gl_error(const char *file, int line)
 }
 
 
+Bunny::Bunny(std::string url){
+  std::ifstream imageFile;
+  imageFile.open(url, std::ios::in | std::ios::binary);
+  if (imageFile.is_open()){
+    
+  }
+  
+
+}
