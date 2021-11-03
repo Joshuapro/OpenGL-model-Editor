@@ -215,10 +215,14 @@ Bunny::Bunny(std::string url){
 
 
     int counter = 0;
+    float baryx = 0;
+    float baryy = 0;
+    float baryz = 0;
 
     while(getline(imageFile,str)){
+
       if (counter < stoi(first)){
-        float first;
+        float f;
         float second;
         float third;
         int count = 0;
@@ -226,12 +230,14 @@ Bunny::Bunny(std::string url){
         for(int i = 0; i < str.size(); i++){
           if (str[i] == ' '){
             if (count == 0){
-              first = stof(num);
+              f = stof(num) * 1.5;
+              baryx += f;
               num = "";
               count += 1;
             }
             else if(count == 1){
-              second = stof(num);
+              second = stof(num) * 1.5;
+              baryy += second;
               num = "";
               count += 1;
             }
@@ -239,30 +245,41 @@ Bunny::Bunny(std::string url){
             num += str[i];
           }
         }
-        third = stof(num);
-        pos.push_back(glm::vec3(first*2,second*2,third*2));
-    }else{
-      string num = "";
-      bool start = true;
-      for (int i = 0; i < str.size(); i++){
-        if (str[i] == ' '){
-          if (start){
-            start = false;
-            num = "";
+        third = stof(num) * 1.5;
+        baryz += third;
+        pos.push_back(glm::vec3(f,second,third));
+      }else{
+        string num = "";
+        bool start = true;
+        for (int i = 0; i < str.size(); i++){
+          if (str[i] == ' '){
+            if (start){
+              start = false;
+              num = "";
+            }else{
+              ind.push_back((GLuint)stoi(num));
+              num = "";
+            }
           }else{
-            ind.push_back((GLuint)stoi(num));
-            num = "";
+            num += str[i];
           }
-        }else{
-          num += str[i];
         }
+        ind.push_back((GLuint)stoi(num));
       }
-      ind.push_back((GLuint)stoi(num));
+      counter += 1;
     }
-    counter += 1;
+    baryy = baryy/stoi(first);
+    baryx = baryx/stoi(first);
+    baryz = baryz/stoi(first);
+
+    for(int i = 0; i < pos.size(); i++){
+      pos[i][0] = pos[i][0] - baryx;
+      pos[i][1] = pos[i][1] - baryy;
+      pos[i][2] = pos[i][2] - baryz;
+    }
+
   }
   
-  }
 
 }
 
@@ -325,10 +342,14 @@ Bumpy::Bumpy(std::string url){
 
 
     int counter = 0;
+    float baryx = 0;
+    float baryy = 0;
+    float baryz = 0;
 
     while(getline(imageFile,str)){
+
       if (counter < stoi(first)){
-        float first;
+        float f;
         float second;
         float third;
         int count = 0;
@@ -336,12 +357,14 @@ Bumpy::Bumpy(std::string url){
         for(int i = 0; i < str.size(); i++){
           if (str[i] == ' '){
             if (count == 0){
-              first = stof(num);
+              f = stof(num) * 0.03;
+              baryx += f;
               num = "";
               count += 1;
             }
             else if(count == 1){
-              second = stof(num);
+              second = stof(num) * 0.03;
+              baryy += second;
               num = "";
               count += 1;
             }
@@ -349,30 +372,41 @@ Bumpy::Bumpy(std::string url){
             num += str[i];
           }
         }
-        third = stof(num);
-        pos.push_back(glm::vec3(0.03*first,0.03*second,0.03*third));
-    }else{
-      string num = "";
-      bool start = true;
-      for (int i = 0; i < str.size(); i++){
-        if (str[i] == ' '){
-          if (start){
-            start = false;
-            num = "";
+        third = stof(num) * 0.03;
+        baryz += third;
+        pos.push_back(glm::vec3(f,second,third));
+      }else{
+        string num = "";
+        bool start = true;
+        for (int i = 0; i < str.size(); i++){
+          if (str[i] == ' '){
+            if (start){
+              start = false;
+              num = "";
+            }else{
+              ind.push_back((GLuint)stoi(num));
+              num = "";
+            }
           }else{
-            ind.push_back((GLuint)stoi(num));
-            num = "";
+            num += str[i];
           }
-        }else{
-          num += str[i];
         }
+        ind.push_back((GLuint)stoi(num));
       }
-      ind.push_back((GLuint)stoi(num));
+      counter += 1;
     }
-    counter += 1;
+    baryy = baryy/stoi(first);
+    baryx = baryx/stoi(first);
+    baryz = baryz/stoi(first);
+
+    for(int i = 0; i < pos.size(); i++){
+      pos[i][0] = pos[i][0] - baryx;
+      pos[i][1] = pos[i][1] - baryy;
+      pos[i][2] = pos[i][2] - baryz;
+    }
+
   }
   
-  }
 
 }
 
