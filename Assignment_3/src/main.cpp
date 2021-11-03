@@ -4,7 +4,7 @@
 #include "Helpers.h"
 #include "ebo.h"
 #include "cube.h"
-// #include "Bunny.h"
+#include "camera.h"
 
 
 #ifdef __APPLE__
@@ -102,6 +102,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 bum.pushVec(vertextPosition,indices);
                 bumpies.push_back(bum);
             }
+        case GLFW_KEY_Z:
+            if (action == GLFW_PRESS){
+                
+            }
         default:
             break;
     }
@@ -194,7 +198,7 @@ int main(void)
                     "uniform mat4 proj;"
                     "void main()"
                     "{"
-                    "    gl_Position = proj * view * model * vec4(position, 1.0);"
+                    "    gl_Position = model * proj * view * vec4(position, 1.0);"
                     "}";
     const GLchar* fragment_shader =
             "#version 150 core\n"
@@ -230,6 +234,7 @@ int main(void)
 
     glEnable(GL_DEPTH_TEST);
 
+    Camera cam(width,height,glm::vec3(0.0f,0.0f,3.0f));
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
     {
@@ -245,6 +250,8 @@ int main(void)
         float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
         // glUniform3f(program.uniform("triangleColor"), (float)(sin(time * 4.0f) + 1.0f) / 2.0f, 0.0f, 0.0f);
 
+    
+
         // Clear the framebuffer
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -255,9 +262,22 @@ int main(void)
         glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 proj = glm::mat4(1.0f);
 
-        // view = glm::scale(glm::mat4(1.f), glm::vec3(r, r, 1.f));
-        view = glm::translate(view,glm::vec3(verti,hori,0));
+
+        // cam.Inputs(window);
+        // glMatrixMode(GL_PROJECTION);
+        // glLoadIdentity();
+
+
+
+        // cam.matrix(45.0f,program);
+
+
+
+        
+        // view = glm::scale(view, glm::vec3(1, 1, 1.0f));
+        // view = glm::translate(view,glm::vec3(verti,hori,0));
         // proj = glm::perspective(glm::radians(45.0f),(float)(width/height), 0.1f, 100.0f);
+
         model = glm::rotate(model,glm::radians(10.5f),glm::vec3(1.0f,0.0f,0.0f));
         model = glm::rotate(model,glm::radians(17.5f),glm::vec3(0.0f,1.0f,0.0f));
 
@@ -265,9 +285,8 @@ int main(void)
         glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
         glUniformMatrix4fv(program.uniform("proj"), 1, GL_FALSE, glm::value_ptr(proj));
 
-        // glUniform1d(uniID,0.5);
-        // view = glm::translate(view,glm::vec3(0.0f,0.5f,-2.0f));
-        // proj = glm::perspective(glm::radians(45.0f), (float)(640/680),0.1f, 100);
+      
+       
 
 
 

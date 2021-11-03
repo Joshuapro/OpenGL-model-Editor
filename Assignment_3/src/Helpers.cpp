@@ -212,12 +212,15 @@ Bunny::Bunny(std::string url){
         cur = cur + str[i];
       }
     }
+    float minix = 9999;
+    float maxix = -9999;
+    float miniy = 9999;
+    float maxiy = -9999;
+    float miniz = 9999;
+    float maxiz = -9999;
 
 
     int counter = 0;
-    float baryx = 0;
-    float baryy = 0;
-    float baryz = 0;
 
     while(getline(imageFile,str)){
 
@@ -232,12 +235,16 @@ Bunny::Bunny(std::string url){
             if (count == 0){
               f = stof(num) * 1.5;
               baryx += f;
+              minix = min(minix,f);
+              maxix = max(maxix,f);
               num = "";
               count += 1;
             }
             else if(count == 1){
               second = stof(num) * 1.5;
               baryy += second;
+              miniy = min(miniy,second);
+              maxiy = max(maxiy,second);
               num = "";
               count += 1;
             }
@@ -246,6 +253,8 @@ Bunny::Bunny(std::string url){
           }
         }
         third = stof(num) * 1.5;
+        miniz = min(miniz,third);
+        maxiz = max(maxiz,third);
         baryz += third;
         pos.push_back(glm::vec3(f,second,third));
       }else{
@@ -268,9 +277,11 @@ Bunny::Bunny(std::string url){
       }
       counter += 1;
     }
-    baryy = baryy/stoi(first);
-    baryx = baryx/stoi(first);
-    baryz = baryz/stoi(first);
+    baryy = (maxiy + miniy)/2;
+    baryx = (maxix + minix)/2;
+    baryz = (maxiz + miniz)/2;
+    // cout << miniz << endl;
+    cout << (maxiy + miniy)/2 << endl;
 
     for(int i = 0; i < pos.size(); i++){
       pos[i][0] = pos[i][0] - baryx;
@@ -325,6 +336,12 @@ Bumpy::Bumpy(std::string url){
     string first;
     string second;
     int count = 0;
+    float minix = 9999;
+    float maxix = -9999;
+    float miniy = 9999;
+    float maxiy = -9999;
+    float miniz = 9999;
+    float maxiz = -9999;
     for(int i = 0; i < str.size(); i++){
       if (str[i] == ' '){
         if (count == 0){
@@ -342,12 +359,8 @@ Bumpy::Bumpy(std::string url){
 
 
     int counter = 0;
-    float baryx = 0;
-    float baryy = 0;
-    float baryz = 0;
 
     while(getline(imageFile,str)){
-
       if (counter < stoi(first)){
         float f;
         float second;
@@ -359,12 +372,16 @@ Bumpy::Bumpy(std::string url){
             if (count == 0){
               f = stof(num) * 0.03;
               baryx += f;
+              minix = min(minix,f);
+              maxix = max(maxix,f);
               num = "";
               count += 1;
             }
             else if(count == 1){
               second = stof(num) * 0.03;
               baryy += second;
+              miniy = min(miniy,second);
+              maxiy = max(maxiy,second);
               num = "";
               count += 1;
             }
@@ -373,6 +390,8 @@ Bumpy::Bumpy(std::string url){
           }
         }
         third = stof(num) * 0.03;
+        miniz = min(miniz,third);
+        maxiz = max(maxiz,third);
         baryz += third;
         pos.push_back(glm::vec3(f,second,third));
       }else{
@@ -395,6 +414,9 @@ Bumpy::Bumpy(std::string url){
       }
       counter += 1;
     }
+    
+    // cout << minix << endl;
+
     baryy = baryy/stoi(first);
     baryx = baryx/stoi(first);
     baryz = baryz/stoi(first);

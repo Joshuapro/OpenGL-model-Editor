@@ -140,6 +140,9 @@ public:
     int poscount = 0;
     int indstart;
     int indcount = 0;
+    float baryy = 0;
+    float baryx = 0;
+    float baryz = 0;
     std::vector<glm::vec3> pos;
     std::vector<GLuint> ind;
     Bunny(std::string url);
@@ -157,6 +160,9 @@ public:
     int poscount = 0;
     int indstart;
     int indcount = 0;
+    float baryy = 0;
+    float baryx = 0;
+    float baryz = 0;
     std::vector<glm::vec3> pos;
     std::vector<GLuint> ind;
     Bumpy(std::string url);
