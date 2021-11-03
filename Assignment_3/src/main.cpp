@@ -32,7 +32,7 @@ std::vector<glm::vec3> vertextPosition;
 std::vector<GLuint> indices;
 std::vector<Cube> cubes;
 std::vector<Bunny> bunnies;
-std::vector<Bunny> b_cubes;
+std::vector<Bumpy> bumpies;
 
 
 // VertexBufferObject wrapper
@@ -96,6 +96,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 bunnies.push_back(bun);
             }
             break;
+        case GLFW_KEY_3:
+            if (action == GLFW_PRESS){
+                Bumpy bum("/Users/joshuayoung/Desktop/base3/Assignment_3/data/bumpy_cube.off");
+                bum.pushVec(vertextPosition,indices);
+                bumpies.push_back(bum);
+            }
         default:
             break;
     }
@@ -249,7 +255,6 @@ int main(void)
         glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 proj = glm::mat4(1.0f);
 
-
         // view = glm::scale(glm::mat4(1.f), glm::vec3(r, r, 1.f));
         view = glm::translate(view,glm::vec3(verti,hori,0));
         // proj = glm::perspective(glm::radians(45.0f),(float)(width/height), 0.1f, 100.0f);
@@ -281,6 +286,10 @@ int main(void)
 
         for (int i = 0; i < bunnies.size();i++){        
             glDrawElements(GL_TRIANGLES, bunnies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bunnies[i].indstart)*sizeof(GL_UNSIGNED_INT)));
+        }
+
+        for (int i = 0; i < bumpies.size();i++){        
+            glDrawElements(GL_TRIANGLES, bumpies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bumpies[i].indstart)*sizeof(GL_UNSIGNED_INT)));
         }
 
 

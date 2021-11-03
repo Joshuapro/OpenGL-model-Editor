@@ -146,3 +146,20 @@ public:
 
     void pushVec(std::vector<glm::vec3>& posvec,std::vector<GLuint>& indvec);
 };
+
+
+
+class Bumpy{
+public:
+    typedef unsigned int GLuint;
+    typedef int GLint;
+    int posstart;
+    int poscount = 0;
+    int indstart;
+    int indcount = 0;
+    std::vector<glm::vec3> pos;
+    std::vector<GLuint> ind;
+    Bumpy(std::string url);
+
+    void pushVec(std::vector<glm::vec3>& posvec,std::vector<GLuint>& indvec);
+};
