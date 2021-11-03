@@ -31,7 +31,9 @@
 std::vector<glm::vec3> vertextPosition;
 std::vector<GLuint> indices;
 std::vector<Cube> cubes;
-std::vector<Bunny> Bunnies;
+std::vector<Bunny> bunnies;
+std::vector<Bunny> b_cubes;
+
 
 // VertexBufferObject wrapper
 VertexBufferObject VBO;
@@ -83,15 +85,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     {
         case GLFW_KEY_1:
             if (action == GLFW_PRESS){
-                Cube hi;
+                Cube hi(vertextPosition,indices);
                 cubes.push_back(hi);
             }
             break;
         case GLFW_KEY_2:
             if (action == GLFW_PRESS){
                 Bunny bun("/Users/joshuayoung/Desktop/base3/Assignment_3/data/bunny.off");
-                Bunnies.push_back(bun);
-                std::cout << Bunnies.size() << std::endl;
+                bun.pushVec(vertextPosition,indices);
+                bunnies.push_back(bun);
             }
             break;
         default:
@@ -265,33 +267,26 @@ int main(void)
 
 
 
-
-
-        //cubes
-        vertextPosition = {};
-        indices = {};
-        for(int i = 0; i < cubes.size(); i++){
-            for(int j = 0; j < cubes[i].pos.size(); j++){
-                vertextPosition.push_back(cubes[i].pos[j]);
-            }
-            for(int j = 0; j < cubes[i].ind.size(); j++){
-                indices.push_back(cubes[i].ind[j]);
-            }
-        }
-
-
-
-        //bunny
-       
-
-
-
- 
         VBO.update(vertextPosition);
         ebo.update(indices);
 
         glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
+        
+        
+        for (int i = 0; i < cubes.size(); i++){
+            glDrawElements(GL_TRIANGLES, cubes[i].indcount, GL_UNSIGNED_INT, (GLvoid*)(cubes[i].indstart*sizeof(GL_UNSIGNED_INT)));
+        }
+
+
+        for (int i = 0; i < bunnies.size();i++){        
+            glDrawElements(GL_TRIANGLES, bunnies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bunnies[i].indstart)*sizeof(GL_UNSIGNED_INT)));
+        }
+
+
+        // glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
+        // glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 2);
 
 
 
@@ -313,37 +308,3 @@ int main(void)
     return 0;
 }
 
-
-
-
-
-        //  vertextPosition = {
-        //     glm::vec3(-0.5,0.5,-0.5),
-        //     glm::vec3(-0.5,0.5,0.5),
-        //     glm::vec3(0.5,0.5,-0.5),
-        //     glm::vec3(0.5,0.5,0.5),
-        //     glm::vec3(-0.5,-0.5,-0.5),
-        //     glm::vec3(-0.5,-0.5,0.5),
-        //     glm::vec3(0.5,-0.5,-0.5),
-        //     glm::vec3(0.5,-0.5,0.5),
-        // };
-
-        // indices = {
-        //     0,1,2,
-        //     1,2,3,
- 
-        //     4,5,6,
-        //     5,6,7,
-     
-        //     0,1,5,
-        //     0,4,5,
-        
-        //     2,3,7,
-        //     2,6,7,
-      
-        //     0,2,6,
-        //     0,4,6,
-           
-        //     1,5,7,
-        //     1,3,7
-        // };

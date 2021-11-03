@@ -134,5 +134,15 @@ public:
 
 class Bunny{
 public:
+    typedef unsigned int GLuint;
+    typedef int GLint;
+    int posstart;
+    int poscount = 0;
+    int indstart;
+    int indcount = 0;
+    std::vector<glm::vec3> pos;
+    std::vector<GLuint> ind;
     Bunny(std::string url);
+
+    void pushVec(std::vector<glm::vec3>& posvec,std::vector<GLuint>& indvec);
 };

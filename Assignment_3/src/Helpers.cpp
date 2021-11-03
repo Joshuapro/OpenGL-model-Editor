@@ -191,8 +191,93 @@ Bunny::Bunny(std::string url){
   std::ifstream imageFile;
   imageFile.open(url, std::ios::in | std::ios::binary);
   if (imageFile.is_open()){
-    
+    string str;
+    getline(imageFile,str);
+    getline(imageFile,str);
+    string cur = "";
+    string first;
+    string second;
+    int count = 0;
+    for(int i = 0; i < str.size(); i++){
+      if (str[i] == ' '){
+        if (count == 0){
+          count += 1;
+          first = cur;
+          cur = "";
+        }else{
+          second = cur;
+          break;
+        }
+      }else{
+        cur = cur + str[i];
+      }
+    }
+
+
+    int counter = 0;
+
+    while(getline(imageFile,str)){
+      if (counter < stoi(first)){
+        float first;
+        float second;
+        float third;
+        int count = 0;
+        string num = "";
+        for(int i = 0; i < str.size(); i++){
+          if (str[i] == ' '){
+            if (count == 0){
+              first = stof(num);
+              num = "";
+              count += 1;
+            }
+            else if(count == 1){
+              second = stof(num);
+              num = "";
+              count += 1;
+            }
+          }else{
+            num += str[i];
+          }
+        }
+        third = stof(num);
+        pos.push_back(glm::vec3(first*2,second*2,third*2));
+    }else{
+      string num = "";
+      bool start = true;
+      for (int i = 0; i < str.size(); i++){
+        if (str[i] == ' '){
+          if (start){
+            start = false;
+            num = "";
+          }else{
+            ind.push_back((GLuint)stoi(num));
+            num = "";
+          }
+        }else{
+          num += str[i];
+        }
+      }
+      ind.push_back((GLuint)stoi(num));
+    }
+    counter += 1;
   }
   
+  }
 
 }
+
+
+void Bunny::pushVec(vector<glm::vec3>& posvec,vector<GLuint>& indvec){
+      posstart = posvec.size();
+      for (int i = 0; i < pos.size(); i++){
+          poscount += 1;
+          posvec.push_back(pos[i]);
+      }
+
+      indstart = indvec.size();
+      for (int i = 0; i < ind.size(); i++){
+          indcount += 1;
+          indvec.push_back(ind[i] + posstart);
+      }
+  }
+
