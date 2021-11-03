@@ -388,7 +388,7 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/_types/_nl_item.h \
   /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/__bsd_locale_defaults.h \
   /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/bitset \
-  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glfw/include/GLFW/glfw3.h \
+  /Users/joshuayoung/desktop/base3/Assignment_3/src/camera.h \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/matrix_transform.hpp \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/../mat4x4.hpp \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/../vec2.hpp \
@@ -487,4 +487,28 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/../mat3x4.hpp \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/../mat4x2.hpp \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/../mat4x3.hpp \
-  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/type_ptr.inl
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/type_ptr.inl \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/vector_angle.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../glm.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../gtc/epsilon.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../gtx/quaternion.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../gtc/constants.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../gtc/quaternion.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../ext/quaternion_exponential.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/./ext/quaternion_exponential.inl \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../gtx/norm.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../geometric.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../gtx/component_wise.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../detail/setup.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../detail/qualifier.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/component_wise.inl \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/norm.inl \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/quaternion.inl \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../gtx/rotate_vector.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../gtx/transform.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../gtc/matrix_transform.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/transform.inl \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../ext/vector_relational.hpp \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/rotate_vector.inl \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/vector_angle.inl \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glfw/include/GLFW/glfw3.h
