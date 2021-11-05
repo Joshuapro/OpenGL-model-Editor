@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 using namespace std;
 
 void VertexArrayObject::init()
@@ -104,8 +105,10 @@ GLint Program::bindVertexAttribArray(
     return id;
   }
   VBO.bind();
-  glEnableVertexAttribArray(id);
-  glVertexAttribPointer(id, VBO.rows, GL_FLOAT, GL_FALSE, 0, 0);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+  glEnableVertexAttribArray(0);
   check_gl_error();
 
   return id;
@@ -188,6 +191,9 @@ void _check_gl_error(const char *file, int line)
 
 
 Bunny::Bunny(std::string url){
+	angleY = 0;
+	model = glm::mat4(1.0f);
+	modelpos = glm::vec3(0.0f);
   std::ifstream imageFile;
   imageFile.open(url, std::ios::in | std::ios::binary);
   if (imageFile.is_open()){
@@ -295,11 +301,36 @@ Bunny::Bunny(std::string url){
 }
 
 
-void Bunny::pushVec(vector<glm::vec3>& posvec,vector<GLuint>& indvec){
+void Bunny::pushVec(){
       posstart = posvec.size();
-      for (int i = 0; i < pos.size(); i++){
-          poscount += 1;
-          posvec.push_back(pos[i]);
+      for (int i = 0; i < pos.size() ; i+=3){
+		  if (i + 1 > pos.size()) {
+			  break;
+		  }
+          poscount += 3;
+		  posvec.push_back(pos[i]);
+		  if (shading_mode == 0) {
+			  posvec.push_back(norms[i]);
+		  }
+		  else {
+			  posvec.push_back(phongnorms[i]);
+		  }
+		  if (i + 1 >= pos.size()) break;
+		  posvec.push_back(pos[i+1]);
+		  if (shading_mode == 0) {
+			  posvec.push_back(norms[i + 1]);
+		  }
+		  else {
+			  posvec.push_back(phongnorms[i + 1]);
+		  }
+		  posvec.push_back(pos[i+2]);
+
+		  if (shading_mode == 0) {
+			  posvec.push_back(norms[i + 2]);
+		  }
+		  else {
+			  posvec.push_back(phongnorms[i + 2]);
+		  }
       }
 
       indstart = indvec.size();
@@ -311,12 +342,37 @@ void Bunny::pushVec(vector<glm::vec3>& posvec,vector<GLuint>& indvec){
 
 
 
-void Bumpy::pushVec(vector<glm::vec3>& posvec,vector<GLuint>& indvec){
+void Bumpy::pushVec(){
       posstart = posvec.size();
-      for (int i = 0; i < pos.size(); i++){
-          poscount += 1;
-          posvec.push_back(pos[i]);
-      }
+	  for (int i = 0; i < pos.size() ; i += 3) {
+		  if (i + 1 > pos.size()) {
+			  break;
+		  }
+		  poscount += 3;
+		  posvec.push_back(pos[i]);
+		  if (shading_mode == 0) {
+			  posvec.push_back(norms[i]);
+		  }
+		  else {
+			  posvec.push_back(phongnorms[i]);
+		  }
+		  if (i + 1 >= pos.size()) break;
+		  posvec.push_back(pos[i + 1]);
+		  if (shading_mode == 0) {
+			  posvec.push_back(norms[i + 1]);
+		  }
+		  else {
+			  posvec.push_back(phongnorms[i + 1]);
+		  }
+		  posvec.push_back(pos[i + 2]);
+
+		  if (shading_mode == 0) {
+			  posvec.push_back(norms[i + 2]);
+		  }
+		  else {
+			  posvec.push_back(phongnorms[i + 2]);
+		  }
+	  }
 
       indstart = indvec.size();
       for (int i = 0; i < ind.size(); i++){
@@ -326,6 +382,8 @@ void Bumpy::pushVec(vector<glm::vec3>& posvec,vector<GLuint>& indvec){
   }
 
 Bumpy::Bumpy(std::string url){
+	model = glm::mat4(1.0f);
+	modelpos = glm::vec3(0.0f);
   std::ifstream imageFile;
   imageFile.open(url, std::ios::in | std::ios::binary);
   if (imageFile.is_open()){

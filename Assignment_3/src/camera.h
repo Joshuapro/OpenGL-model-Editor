@@ -2,26 +2,13 @@
 #define CAMERA_CLASS_H
 
 
-#ifdef _WIN32
-#  include <windows.h>
-#  undef max
-#  undef min
-#  undef DrawText
-#endif
-
-#ifndef __APPLE__
-#  define GLEW_STATIC
-#  include <GL/glew.h>
-#endif
-
 #ifdef __APPLE__
-#   include <OpenGL/gl3.h>
-#   define __gl_h_ /* Prevent inclusion of the old gl.h */
+#define GL_SILENCE_DEPRECATION
+// GLFW is necessary to handle the OpenGL context
+#include <GLFW/glfw3.h>
 #else
-#   ifdef _WIN32
-#       include <windows.h>
-#   endif
-#   include <GL/gl.h>
+// GLFW is necessary to handle the OpenGL context
+#include <GLFW/glfw3.h>
 #endif
 
 
@@ -33,7 +20,6 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 #include <glm/gtx/vector_angle.hpp>
-#include <GLFW/glfw3.h>
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
 
@@ -60,9 +46,9 @@ class Camera{
         glm::mat4 projection = glm::mat4(1.0f);
 
         view = glm::lookAt(Position, Position + Orientation, Up);
-        std::cout << "here" << std::endl;
         projection = glm::perspective(glm::radians(deg),(float)(width / height), 0.0f, 100.0f);
-        glUniformMatrix4fv(program.uniform("view"), 1, GL_FALSE, glm::value_ptr(view*projection));
+        view = view * projection;
+        glUniformMatrix4fv(program.uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
     };
 
     void Inputs(GLFWwindow* window)
@@ -155,10 +141,4 @@ class Camera{
 
 
 };
-
-
-
-
-
-
 #endif

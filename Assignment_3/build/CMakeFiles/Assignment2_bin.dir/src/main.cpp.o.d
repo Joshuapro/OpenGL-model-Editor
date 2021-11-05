@@ -389,6 +389,7 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/__bsd_locale_defaults.h \
   /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/bitset \
   /Users/joshuayoung/desktop/base3/Assignment_3/src/camera.h \
+  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glfw/include/GLFW/glfw3.h \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/matrix_transform.hpp \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/../mat4x4.hpp \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtc/../vec2.hpp \
@@ -511,4 +512,9 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/../ext/vector_relational.hpp \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/rotate_vector.inl \
   /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glm/glm/gtx/vector_angle.inl \
-  /Users/joshuayoung/desktop/base3/Assignment_3/../ext/glfw/include/GLFW/glfw3.h
+  /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/fstream \
+  /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/filesystem \
+  /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/deque \
+  /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/iomanip \
+  /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/sstream

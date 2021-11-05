@@ -1570,6 +1570,7 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
   /Library/Developer/CommandLineTools/usr/include/c++/v1/__bsd_locale_defaults.h \
   /Library/Developer/CommandLineTools/usr/include/c++/v1/bitset \
   ../src/camera.h \
+  /Users/joshuayoung/desktop/base3/ext/glfw/include/GLFW/glfw3.h \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/gtc/matrix_transform.hpp \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/mat4x4.hpp \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/vec2.hpp \
@@ -1692,8 +1693,15 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/ext/vector_relational.hpp \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/rotate_vector.inl \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/vector_angle.inl \
-  /Users/joshuayoung/desktop/base3/ext/glfw/include/GLFW/glfw3.h
+  /Library/Developer/CommandLineTools/usr/include/c++/v1/fstream \
+  /Library/Developer/CommandLineTools/usr/include/c++/v1/filesystem \
+  /Library/Developer/CommandLineTools/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/usr/include/c++/v1/deque \
+  /Library/Developer/CommandLineTools/usr/include/c++/v1/iomanip \
+  /Library/Developer/CommandLineTools/usr/include/c++/v1/sstream
 
+
+/Library/Developer/CommandLineTools/usr/include/c++/v1/sstream:
 
 /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/rotate_vector.inl:
 
@@ -1846,6 +1854,12 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 /Users/joshuayoung/desktop/base3/ext/glm/glm/mat3x3.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/xlocale/_stdio.h:
+
+/Users/joshuayoung/desktop/base3/ext/glm/glm/ext/vector_int1.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/sys/_posix_availability.h:
+
+/Users/joshuayoung/desktop/base3/ext/glfw/include/GLFW/glfw3.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/xlocale/_ctype.h:
 
@@ -2496,12 +2510,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/sys/_types/_null.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/sys/_types/_clock_t.h:
-
-/Users/joshuayoung/desktop/base3/ext/glfw/include/GLFW/glfw3.h:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/ext/vector_int1.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/sys/_posix_availability.h:
 
 /Users/joshuayoung/desktop/base3/ext/glm/glm/ext/quaternion_exponential.inl:
 

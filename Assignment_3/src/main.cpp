@@ -6,7 +6,6 @@
 #include "cube.h"
 #include "camera.h"
 
-
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
 // GLFW is necessary to handle the OpenGL context
@@ -23,13 +22,15 @@
 #include <glm/mat4x4.hpp> // glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
+#include <fstream>
+#include <sstream>
+#include <iostream>
 // Timer
 #include <chrono>
 #include <iostream>
 #include <exception>
 
-std::vector<glm::vec3> vertextPosition;
-std::vector<GLuint> indices;
+int shading_mode = 1;
 std::vector<Cube> cubes;
 std::vector<Bunny> bunnies;
 std::vector<Bumpy> bumpies;
@@ -48,6 +49,7 @@ std::vector<glm::vec3> V;
 glm::mat4 model = glm::mat4(1.0f);
 glm::mat4 view = glm::mat4(1.0f);
 glm::mat4 proj = glm::mat4(1.0f);
+glm::vec3 objectColor(0.73f);
 float hori = 0;
 float verti = 0;
 float r = 1;
@@ -78,6 +80,52 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 //     VBO.update(V);
 // }
 
+void rotateObject(int dir) {
+	if (bunnies.size() <= 0) return;
+	if (dir == 0) {//up
+		bunnies[0].angleY += 0.1;
+
+		//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
+
+	}
+	else if (dir == 1) {//up
+		bunnies[0].angleY -= 0.1;
+
+		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+	}
+	
+
+}
+
+
+void moveObject(int dir) {
+	if (bunnies.size() <= 0) return;
+	if (dir == 0) {//up
+		bunnies[0].modelpos.y += 0.1;
+		
+		//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
+			
+	}else if (dir == 1) {//up
+		bunnies[0].modelpos.y -= 0.1;
+
+		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+	}
+	else if (dir == 2) {//up
+		bunnies[0].modelpos.x -= 0.1;
+
+		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+	}
+	else if (dir == 3) {//up
+		bunnies[0].modelpos.x += 0.1;
+
+		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+	}
+
+}
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     // Update the position of the first vertex if the keys 1,2, or 3 are pressed
@@ -85,27 +133,88 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     {
         case GLFW_KEY_1:
             if (action == GLFW_PRESS){
-                Cube hi(vertextPosition,indices);
-                cubes.push_back(hi);
+                // Cube hi(vertextPosition,indices);
+                // cubes.push_back(hi);
             }
             break;
         case GLFW_KEY_2:
             if (action == GLFW_PRESS){
-                Bunny bun("/Users/joshuayoung/Desktop/base3/Assignment_3/data/bunny.off");
-                bun.pushVec(vertextPosition,indices);
+                Bunny bun("../data/bunny.off");
+				bun.shading_mode = shading_mode;
+				bun.calcNormal();
+				bun.pushVec();
                 bunnies.push_back(bun);
             }
             break;
         case GLFW_KEY_3:
             if (action == GLFW_PRESS){
-                Bumpy bum("/Users/joshuayoung/Desktop/base3/Assignment_3/data/bumpy_cube.off");
-                bum.pushVec(vertextPosition,indices);
+                Bumpy bum("../data/bumpy_cube.off");
+				bum.shading_mode = shading_mode;
+				bum.calcNormal();
+				bum.pushVec();
                 bumpies.push_back(bum);
             }
+			break;
         case GLFW_KEY_Z:
             if (action == GLFW_PRESS){
                 
             }
+		case GLFW_KEY_P:
+			if (action == GLFW_PRESS) {
+				//vertextPosition.clear();
+				//indices.clear();
+				bunnies.clear();
+				bumpies.clear();
+				shading_mode = 1;
+			}
+			break;
+		case GLFW_KEY_F:
+			if (action == GLFW_PRESS) {
+				//vertextPosition.clear();
+				//indices.clear();
+				bunnies.clear();
+				bumpies.clear();
+				shading_mode = 0;
+			}
+			break;
+		case GLFW_KEY_W:
+			moveObject(0);
+			break;
+		case GLFW_KEY_S:
+			moveObject(1);
+			break;
+		case GLFW_KEY_A:
+			moveObject(2);
+			break;
+		case GLFW_KEY_D:
+			moveObject(3);
+		case GLFW_KEY_E:
+			rotateObject(0);
+			break;
+		case GLFW_KEY_R:
+			rotateObject(1);
+			break;
+		case GLFW_KEY_UP:
+			view = glm::translate(view, glm::vec3(0, 0.1, .00));
+			break;
+		case GLFW_KEY_LEFT:
+			view = glm::translate(view, glm::vec3(-0.1, 0.0, .00));
+			break;
+		case GLFW_KEY_DOWN:
+			view = glm::translate(view, glm::vec3(0, -0.1, .00));
+			break;
+		case GLFW_KEY_RIGHT:
+			view = glm::translate(view, glm::vec3(0.1, 0.0, .00));
+			break;
+		case GLFW_KEY_4:
+			objectColor = glm::vec3(1,0,0);
+			break;
+		case GLFW_KEY_5:
+			objectColor = glm::vec3(1, 1, 0);
+			break;
+		case GLFW_KEY_6:
+			objectColor = glm::vec3(1, 0,1);
+			break;
         default:
             break;
     }
@@ -191,28 +300,93 @@ int main(void)
     // at least a vertex shader and a fragment shader to be valid
     Program program;
     const GLchar* vertex_shader =
-            "#version 150 core\n"
-                    "in vec3 position;"
-                    "uniform mat4 view;"
-                    "uniform mat4 model;"
-                    "uniform mat4 proj;"
-                    "void main()"
-                    "{"
-                    "    gl_Position = model * proj * view * vec4(position, 1.0);"
-                    "}";
-    const GLchar* fragment_shader =
-            "#version 150 core\n"
-                    "out vec4 outColor;" 
-                    "uniform vec3 triangleColor;"
-                    "void main()"
-                    "{"
-                    "    outColor = vec4(triangleColor, 1.0);"
-                    "}";
+		"#version 150 core\n"
+		"in vec3 position;\n"
+		"in vec3 normal;\n"
 
+		"out vec3 FragPos;\n"
+		"out vec3 Normal;\n"
+		"out vec3 flatColor;\n"
+
+		"uniform mat4 model;\n"
+		"uniform mat4 view;\n"
+		
+		"uniform vec3 lightPos;\n"
+		"uniform vec3 viewPos;\n"
+		"uniform vec3 lightColor;\n"
+		"uniform vec3 objectColor;\n"
+
+		"void main()\n"
+		"{\n"
+		"    FragPos = vec3(model * vec4(position, 1.0));\n"
+		"    Normal = mat3(transpose(inverse(model))) * normal;\n"
+		"    // ambient\n"
+		"    float ambientStrength = 0.1;\n"
+		"    vec3 ambient = ambientStrength * lightColor;\n"
+
+		"    // diffuse \n"
+		"    vec3 norm = normalize(Normal);\n"
+		"    vec3 lightDir = normalize(lightPos - FragPos);\n"
+		"    float diff = max(dot(norm, lightDir), 0.0);\n"
+		"    vec3 diffuse = diff * lightColor;\n"
+
+		"    // specular\n"
+		"    float specularStrength = 0.5;\n"
+		"    vec3 viewDir = normalize(viewPos - FragPos);\n"
+		"    vec3 reflectDir = reflect(-lightDir, norm);\n"
+		"    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);\n"
+		"    vec3 specular = specularStrength * spec * lightColor;\n"
+
+		"    flatColor = (ambient + diffuse + specular) * objectColor;\n"
+
+		"    gl_Position =  view *  vec4(FragPos, 1.0);\n"
+		"}\n";
+    const GLchar* fragment_shader =
+		" #version 150 core\n"
+		"out vec4 outColor;\n"
+
+		"in vec3 Normal;\n"
+		"in vec3 FragPos;\n"
+		"in vec3 flatColor;\n"
+
+		"uniform vec3 lightPos;\n"
+		"uniform vec3 viewPos;\n"
+		"uniform vec3 lightColor;\n"
+		"uniform vec3 objectColor;\n"
+		"uniform int shading_mode;\n"
+
+		"void main()\n"
+		"{"
+		"    // ambient\n"
+		"    float ambientStrength = 0.1;\n"
+		"    vec3 ambient = ambientStrength * lightColor;\n"
+
+		"    // diffuse \n"
+		"    vec3 norm = normalize(Normal);\n"
+		"    vec3 lightDir = normalize(lightPos - FragPos);\n"
+		"    float diff = max(dot(norm, lightDir), 0.0);\n"
+		"    vec3 diffuse = diff * lightColor;\n"
+
+		"    // specular\n"
+		"    float specularStrength = 0.5;\n"
+		"    vec3 viewDir = normalize(viewPos - FragPos);\n"
+		"    vec3 reflectDir = reflect(-lightDir, norm);\n"
+		"    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);\n"
+		"    vec3 specular = specularStrength * spec * lightColor;\n"
+
+		"    vec3 result = (ambient + diffuse + specular) * objectColor;\n"
+		"	if(shading_mode == 0){\n"
+		"		outColor = vec4(flatColor, 1.0);\n"
+		"	}else{\n"
+		"		outColor = vec4(result, 1.0);\n"
+		"	}\n"
+
+		"}\n";
+	 
     // Compile the two shaders and upload the binary to the GPU
     // Note that we have to explicitly specify that the output "slot" called outColor
     // is the one that we want in the fragment buffer (and thus on screen)
-    program.init(vertex_shader,fragment_shader,"outColor");
+    program.init(vertex_shader, fragment_shader,"outColor");
     program.bind();
 
     // The vertex shader wants the position of the vertices as an input.
@@ -231,10 +405,14 @@ int main(void)
 
     // Update viewport
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    // glViewport(0, 0, width, height);
+    // glMatrixMode(GL_PROJECTION);
+    // glLoadIdentity();
 
     glEnable(GL_DEPTH_TEST);
 
-    Camera cam(width,height,glm::vec3(0.0f,0.0f,3.0f));
+    // Camera cam(width,height,glm::vec3(0.0f,0.0f,3.0f));
+
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
     {
@@ -255,59 +433,85 @@ int main(void)
         // Clear the framebuffer
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // glLoadIdentity();
         // glClear(GL_COLOR_BUFFER_BIT);
         
         // glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
         glm::mat4 model = glm::mat4(1.0f);
-        glm::mat4 view = glm::mat4(1.0f);
+        //glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 proj = glm::mat4(1.0f);
 
 
         // cam.Inputs(window);
+        // cam.matrix(45.0f, program);
         // glMatrixMode(GL_PROJECTION);
         // glLoadIdentity();
 
-
-
-        // cam.matrix(45.0f,program);
+        // glm::glMatrixMode(GL_MODEVIEW);
 
 
 
-        
+		static float n = 0;
+		n += 0.5;
         // view = glm::scale(view, glm::vec3(1, 1, 1.0f));
-        // view = glm::translate(view,glm::vec3(verti,hori,0));
+       // view = glm::translate(view,glm::vec3(0,0,0));
         // proj = glm::perspective(glm::radians(45.0f),(float)(width/height), 0.1f, 100.0f);
+		glm::vec3 lightPos(1.2f, 1.0f, -2.0f);
+		
+		glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+		glm::vec3 viewPos(0.0f, -1.0f, 0.0f);
 
-        model = glm::rotate(model,glm::radians(10.5f),glm::vec3(1.0f,0.0f,0.0f));
-        model = glm::rotate(model,glm::radians(17.5f),glm::vec3(0.0f,1.0f,0.0f));
+        //model = glm::rotate(model,n ,glm::vec3(0.0f,1.0f,0.0f));
+        //model = glm::rotate(model,glm::radians(17.5f),glm::vec3(0.0f,1.0f,0.0f));
+		glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(objectColor));
+		glUniform3fv(program.uniform("lightColor"), 1, glm::value_ptr(lightColor));
+		glUniform3fv(program.uniform("viewPos"), 1, glm::value_ptr(viewPos));
+		glUniform3fv(program.uniform("lightPos"),1, glm::value_ptr(lightPos));
+
+		glUniform1i(program.uniform("shading_mode"), shading_mode);
 
         glUniformMatrix4fv(program.uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
-        glUniformMatrix4fv(program.uniform("proj"), 1, GL_FALSE, glm::value_ptr(proj));
-
+		
+       // glUniformMatrix4fv(program.uniform("proj"), 1, GL_FALSE, glm::value_ptr(proj));
+		check_gl_error();
       
        
 
 
 
 
-        VBO.update(vertextPosition);
-        ebo.update(indices);
+       
 
-        glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+       // glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 
         
         
         for (int i = 0; i < cubes.size(); i++){
+			std::vector<glm::vec3> vertextPosition;
+			std::vector<GLuint> indices;
+			
             glDrawElements(GL_TRIANGLES, cubes[i].indcount, GL_UNSIGNED_INT, (GLvoid*)(cubes[i].indstart*sizeof(GL_UNSIGNED_INT)));
         }
 
 
-        for (int i = 0; i < bunnies.size();i++){        
+        for (int i = 0; i < bunnies.size();i++){      
+		 
+			
+			VBO.update(bunnies[i].posvec);
+			ebo.update(bunnies[i].indvec);
+			auto model = glm::translate(view, bunnies[i].modelpos);
+			model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+			//VBO.updateN(bunnies[i].norms);
+			//glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(bunnies[0].model));
             glDrawElements(GL_TRIANGLES, bunnies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bunnies[i].indstart)*sizeof(GL_UNSIGNED_INT)));
         }
 
-        for (int i = 0; i < bumpies.size();i++){        
+        for (int i = 0; i < bumpies.size();i++){     
+			VBO.update(bumpies[i].posvec);
+			ebo.update(bumpies[i].indvec);
+			auto model = glm::translate(view, bumpies[i].modelpos);
+			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
             glDrawElements(GL_TRIANGLES, bumpies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bumpies[i].indstart)*sizeof(GL_UNSIGNED_INT)));
         }
 

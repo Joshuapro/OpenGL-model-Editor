@@ -82,11 +82,23 @@ public:
       // assert(!array.empty()); 
       glBindBuffer(GL_ARRAY_BUFFER, id);
       glBufferData(GL_ARRAY_BUFFER, sizeof(T) * array.size(), array.data(), GL_DYNAMIC_DRAW);
+
       cols = array.size();
+	  if(cols > 0)
       rows = array[0].length();
       check_gl_error();
     };
-
+	template<typename T>
+	void updateN(const std::vector<T>& array)
+	{
+		assert(id != 0);
+		// assert(!array.empty()); 
+		glBindBuffer(GL_ARRAY_BUFFER, id);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(T) * array.size(), array.data(), GL_DYNAMIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		check_gl_error();
+	};
     // Select this VBO for subsequent draw calls
     void bind();
 
@@ -143,11 +155,74 @@ public:
     float baryy = 0;
     float baryx = 0;
     float baryz = 0;
-    std::vector<glm::vec3> pos;
+	glm::vec3 scale = glm::vec3(1.0f,1.0f,1.0f);
+	std::vector<glm::vec3> pos;
+	glm::vec3 modelpos;
+	float angleY;
+	glm::mat4 model;
+	int shading_mode = 1;
+	Bunny() {
+		model  = glm::mat4(1.0f);
+		modelpos = glm::vec3(0.0f);
+	}
     std::vector<GLuint> ind;
-    Bunny(std::string url);
 
-    void pushVec(std::vector<glm::vec3>& posvec,std::vector<GLuint>& indvec);
+	std::vector<glm::vec3> posvec;
+	std::vector<GLuint> indvec;
+
+    Bunny(std::string url);
+	std::vector<glm::vec3> norms;
+	std::vector<glm::vec3> phongnorms;
+	glm::vec3 triangleNormal(glm::vec3 a, glm::vec3 b, glm::vec3 c)
+	{
+
+		glm::vec3 u = a - b;
+		glm::vec3 v = b - c;
+		return glm::cross(u,v);
+	}
+	void calcNormal() {
+		
+		norms.clear();
+		norms.resize(pos.size());
+		std::vector<int> counters;
+		counters.resize(pos.size());
+		phongnorms.resize(norms.size());
+		for (int i = 0; i < ind.size(); i+=3) {
+			int i0 = ind[i];
+			int i1 = ind[i+1];
+			int i2 = ind[i+2];
+		 
+			glm::vec3 pos0 = pos.at(i0);
+			glm::vec3 pos1 = pos.at(i1);
+			glm::vec3 pos2 = pos.at(i2);
+			glm::vec3 N = triangleNormal(pos0, pos1, pos2);
+			N = glm::normalize(N);
+			norms[i0] = N;
+			norms[i1] = N;
+			norms[i2] = N;
+			phongnorms[i0] += N;
+			phongnorms[i1] += N;
+			phongnorms[i2] += N;
+
+			counters[i0]++;
+			counters[i1]++;
+			counters[i2]++;
+		}
+		
+		for (int i = 0; i < static_cast<int>(norms.size()); ++i) {
+			//phongnorms[i] = norms[i];
+			if (counters[i] > 0) {
+
+				phongnorms[i] /= counters[i];
+			}
+			else {
+				glm::normalize(phongnorms[i]);
+
+			}
+
+		}
+	}
+    void pushVec();
 };
 
 
@@ -163,9 +238,67 @@ public:
     float baryy = 0;
     float baryx = 0;
     float baryz = 0;
+
+	glm::vec3 modelpos;
+	glm::mat4 model;
+	int shading_mode = 1;
     std::vector<glm::vec3> pos;
     std::vector<GLuint> ind;
     Bumpy(std::string url);
+	std::vector<glm::vec3> norms;
+	std::vector<glm::vec3> phongnorms;
 
-    void pushVec(std::vector<glm::vec3>& posvec,std::vector<GLuint>& indvec);
+	std::vector<glm::vec3> posvec;
+	std::vector<GLuint> indvec;
+
+	glm::vec3 triangleNormal(glm::vec3 a, glm::vec3 b, glm::vec3 c)
+	{
+
+		glm::vec3 u = a - b;
+		glm::vec3 v = b - c;
+		return glm::cross(u, v);
+	}
+	void calcNormal() {
+
+		norms.clear();
+		norms.resize(pos.size());
+		phongnorms.resize(norms.size());
+		std::vector<int> counters;
+		counters.resize(pos.size());
+		for (int i = 0; i < ind.size(); i += 3) {
+			int i0 = ind[i];
+			int i1 = ind[i + 1];
+			int i2 = ind[i + 2];
+
+			glm::vec3 pos0 = pos.at(i0);
+			glm::vec3 pos1 = pos.at(i1);
+			glm::vec3 pos2 = pos.at(i2);
+			glm::vec3 N = triangleNormal(pos0, pos1, pos2);
+			N = glm::normalize(N);
+			phongnorms[i0] += N;
+			phongnorms[i1] += N;
+			phongnorms[i2] += N;
+			norms[i0] = N;
+			norms[i1] = N;
+			norms[i2] = N;
+
+			counters[i0]++;
+			counters[i1]++;
+			counters[i2]++;
+		}
+		//
+		for (int i = 0; i < static_cast<int>(norms.size()); ++i) {
+			//phongnorms[i] = norms[i];
+			if (counters[i] > 0) {
+				
+				phongnorms[i] /=  counters[i];
+			}
+			else {
+				glm::normalize(phongnorms[i]);
+
+			}
+				
+		}
+	}
+    void pushVec();
 };
