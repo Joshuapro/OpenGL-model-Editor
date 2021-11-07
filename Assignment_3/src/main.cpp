@@ -36,7 +36,7 @@ std::vector<Cube> cubes;
 std::vector<Bunny> bunnies;
 std::vector<Bumpy> bumpies;
 
-int total_object = 1000;
+int total_object = 150;
 // VertexBufferObject wrapper
 VertexBufferObject VBO;
 EBO ebo;
@@ -75,30 +75,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
      // Convert screen position to world coordinates
      double xworld = ((xpos/double(width))*2)-1;
      double yworld = (((height-1-ypos)/double(height))*2)-1; // NOTE: y axis is flipped in glfw
-     // Update the position of the first vertex if the left button is pressed
-	 if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-	 {
-		 programPick.bind();
-		 glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-		 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		 for (int i = 0; i < bunnies.size(); i++) {
-
-
-			 VBO.update(bunnies[i].posvec);
-			 ebo.update(bunnies[i].indvec);
-			 auto model = glm::translate(view, bunnies[i].modelpos);
-			 model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
-			 //glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-			 glUniform3fv(programPick.uniform("PickingColor"), 1, glm::value_ptr(objectColor));
-			 glUniformMatrix4fv(programPick.uniform("MVP"), 1, GL_FALSE, glm::value_ptr(model));
-			 //VBO.updateN(bunnies[i].norms);
-			 //glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(bunnies[0].model));
-			 glDrawElements(GL_TRIANGLES, bunnies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bunnies[i].indstart) * sizeof(GL_UNSIGNED_INT)));
-			 glfwSwapBuffers(window);
-		 }
-	 }
+	glReadPixels(xpos, height-1-ypos,1,1,GL_STENCIL_INDEX,GL_INT, &globalPickedId);
  }
+
  void scaleObject(int dir) {
 	 float at = 0;
 	 if (dir == 0) {//up
@@ -206,7 +186,6 @@ void moveObject(int dir) {
 		if (cubes[i].uid == globalPickedId) {
 			if (dir == 0) {//up
 				cubes[i].modelpos.y += 0.1;
-
 			}
 			else if (dir == 1) {//up
 				cubes[i].modelpos.y -= 0.1;
@@ -426,7 +405,8 @@ int main(void)
 #endif
 
     // Create a windowed mode window and its OpenGL context
-    window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
+	// glfwGetPrimarymonitor()
+    window = glfwCreateWindow(width, height, "Hello World", glfwGetPrimaryMonitor(), NULL);
     if (!window)
     {
         glfwTerminate();
@@ -613,7 +593,7 @@ int main(void)
     glfwSetKeyCallback(window, key_callback);
 
     // Register the mouse callback
-    //glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
 
     // Update viewport
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -622,6 +602,7 @@ int main(void)
     // glLoadIdentity();
 
     glEnable(GL_DEPTH_TEST);
+	glEnable(GL_STENCIL_TEST);
 
     // Camera cam(width,height,glm::vec3(0.0f,0.0f,3.0f));
 
@@ -631,11 +612,9 @@ int main(void)
         // Bind your VAO (not necessary if you have only one)
         VAO.bind();
         ebo.bind();
-		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
-			
-			
-			globalPickedId = 1000;
-		}
+		// if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {		
+		// 	globalPickedId = 1000;
+		// }
         // Bind your program
         program.bind();
 		glEnableVertexAttribArray(0);
@@ -649,37 +628,27 @@ int main(void)
 
         // Clear the framebuffer
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // glLoadIdentity();
-        // glClear(GL_COLOR_BUFFER_BIT);
-        
-        // glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		glClearStencil(0);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT| GL_STENCIL_BUFFER_BIT);
+
+
         glm::mat4 model = glm::mat4(1.0f);
-        //glm::mat4 view = glm::mat4(1.0f);
+
         glm::mat4 proj = glm::mat4(1.0f);
 
 
-        // cam.Inputs(window);
-        // cam.matrix(45.0f, program);
-        // glMatrixMode(GL_PROJECTION);
-        // glLoadIdentity();
-
-        // glm::glMatrixMode(GL_MODEVIEW);
-
-
+		glEnable(GL_STENCIL_TEST);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
 		static float n = 0;
 		n += 0.5;
-        // view = glm::scale(view, glm::vec3(1, 1, 1.0f));
-       // view = glm::translate(view,glm::vec3(0,0,0));
-        // proj = glm::perspective(glm::radians(45.0f),(float)(width/height), 0.1f, 100.0f);
+
 		glm::vec3 lightPos(1.2f, 1.0f, -2.0f);
 		
 		glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 		glm::vec3 viewPos(0.0f, -1.0f, 0.0f);
 
-        //model = glm::rotate(model,n ,glm::vec3(0.0f,1.0f,0.0f));
-        //model = glm::rotate(model,glm::radians(17.5f),glm::vec3(0.0f,1.0f,0.0f));
+ 
 		glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(objectColor));
 		glUniform3fv(program.uniform("lightColor"), 1, glm::value_ptr(lightColor));
 		glUniform3fv(program.uniform("viewPos"), 1, glm::value_ptr(viewPos));
@@ -707,11 +676,16 @@ int main(void)
 		}
 		glUniform1i(program.uniform("display_mode"), 0);
         
+
+		std::cout << globalPickedId << std::endl;
         
         for (int i = 0; i < cubes.size(); i++){
 			if (cubes[i].uid == -1) {
 				continue;
 			}
+			
+			glStencilFunc(GL_ALWAYS, cubes[i].uid, -1);	
+			if (globalPickedId == cubes[i].uid) std::cout << "clicked!" << std::endl;	
 			VBO.update(cubes[i].posvec);
 			ebo.update(cubes[i].indvec);
 			auto model = glm::translate(view, cubes[i].modelpos);
@@ -728,8 +702,9 @@ int main(void)
 			if (bunnies[i].uid == -1) {
 				continue;
 			}
+			glStencilFunc(GL_ALWAYS, bunnies[i].uid, -1);	
+			if (globalPickedId == bunnies[i].uid) std::cout << "clicked!" << std::endl;	
 
-			
 			VBO.update(bunnies[i].posvec);
 			ebo.update(bunnies[i].indvec);
 			auto model = glm::translate(view, bunnies[i].modelpos);
@@ -747,7 +722,8 @@ int main(void)
 			if (bumpies[i].uid == -1) {
 				continue;
 			}
-
+			glStencilFunc(GL_ALWAYS, bumpies[i].uid, -1);	
+			if (globalPickedId == bumpies[i].uid) std::cout << "clicked!" << std::endl;	
 			VBO.update(bumpies[i].posvec);
 			ebo.update(bumpies[i].indvec);
 			auto model = glm::translate(view, bumpies[i].modelpos);
