@@ -149,16 +149,18 @@ public:
     typedef unsigned int GLuint;
     typedef int GLint;
     int posstart;
+	int uid;
     int poscount = 0;
     int indstart;
     int indcount = 0;
     float baryy = 0;
     float baryx = 0;
     float baryz = 0;
-	glm::vec3 scale = glm::vec3(1.0f,1.0f,1.0f);
 	std::vector<glm::vec3> pos;
 	glm::vec3 modelpos;
 	float angleY;
+	float objsize;
+
 	glm::mat4 model;
 	int shading_mode = 1;
 	Bunny() {
@@ -231,6 +233,7 @@ class Bumpy{
 public:
     typedef unsigned int GLuint;
     typedef int GLint;
+	int uid;
     int posstart;
     int poscount = 0;
     int indstart;
@@ -238,6 +241,8 @@ public:
     float baryy = 0;
     float baryx = 0;
     float baryz = 0;
+	float angleY;
+	float objsize;
 
 	glm::vec3 modelpos;
 	glm::mat4 model;

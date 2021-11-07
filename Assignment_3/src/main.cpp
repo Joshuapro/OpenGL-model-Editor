@@ -31,14 +31,15 @@
 #include <exception>
 
 int shading_mode = 1;
+int globalPickedId = -1;
 std::vector<Cube> cubes;
 std::vector<Bunny> bunnies;
 std::vector<Bumpy> bumpies;
 
-
+int total_object = 1000;
 // VertexBufferObject wrapper
 VertexBufferObject VBO;
-
+EBO ebo;
 // Contains the vertex positions
 //Eigen::MatrixXf V(2,3);
 const unsigned int width = 640;
@@ -53,8 +54,9 @@ glm::vec3 objectColor(0.73f);
 float hori = 0;
 float verti = 0;
 float r = 1;
-
-
+int display_mode = 0;
+Program program;
+Program programPick;
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -62,68 +64,211 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-// void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-// {
-//     // Get the position of the mouse in the window
-//     double xpos, ypos;
-//     glfwGetCursorPos(window, &xpos, &ypos);
-//     // Get the size of the window
-//     int width, height;
-//     glfwGetWindowSize(window, &width, &height);
-//     // Convert screen position to world coordinates
-//     double xworld = ((xpos/double(width))*2)-1;
-//     double yworld = (((height-1-ypos)/double(height))*2)-1; // NOTE: y axis is flipped in glfw
-//     // Update the position of the first vertex if the left button is pressed
-//     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-//         V[0] = glm::vec2(xworld, yworld);
-//     // Upload the change to the GPU
-//     VBO.update(V);
-// }
+ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+ {
+     // Get the position of the mouse in the window
+     double xpos, ypos;
+     glfwGetCursorPos(window, &xpos, &ypos);
+     // Get the size of the window
+     int width, height;
+     glfwGetWindowSize(window, &width, &height);
+     // Convert screen position to world coordinates
+     double xworld = ((xpos/double(width))*2)-1;
+     double yworld = (((height-1-ypos)/double(height))*2)-1; // NOTE: y axis is flipped in glfw
+     // Update the position of the first vertex if the left button is pressed
+	 if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	 {
+		 programPick.bind();
+		 glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		 for (int i = 0; i < bunnies.size(); i++) {
+
+
+			 VBO.update(bunnies[i].posvec);
+			 ebo.update(bunnies[i].indvec);
+			 auto model = glm::translate(view, bunnies[i].modelpos);
+			 model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			 //glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+			 glUniform3fv(programPick.uniform("PickingColor"), 1, glm::value_ptr(objectColor));
+			 glUniformMatrix4fv(programPick.uniform("MVP"), 1, GL_FALSE, glm::value_ptr(model));
+			 //VBO.updateN(bunnies[i].norms);
+			 //glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(bunnies[0].model));
+			 glDrawElements(GL_TRIANGLES, bunnies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bunnies[i].indstart) * sizeof(GL_UNSIGNED_INT)));
+			 glfwSwapBuffers(window);
+		 }
+	 }
+ }
+ void scaleObject(int dir) {
+	 float at = 0;
+	 if (dir == 0) {//up
+		 at += 0.1;
+
+	 }
+	 else if (dir == 1) {//up
+		 at -= 0.1;
+
+	 }
+	 if (globalPickedId < 0) return;
+	 for (int i = 0; i < cubes.size(); i++) {
+		 if (cubes[i].uid == globalPickedId) {
+			 cubes[i].objsize += at;
+			 return;
+		 }
+	 }
+	 for (int i = 0; i < bunnies.size(); i++) {
+		 if (bunnies[i].uid == globalPickedId) {
+			 bunnies[i].objsize += at;
+			 return;
+		 }
+	 }
+	 for (int i = 0; i < bumpies.size(); i++) {
+		 if (bumpies[i].uid == globalPickedId) {
+			 bumpies[i].objsize += at;
+		 }
+	 }
+
+
+
+ }
 void rotateObject(int dir) {
-	if (bunnies.size() <= 0) return;
+	float at = 0;
 	if (dir == 0) {//up
-		bunnies[0].angleY += 0.1;
+		at += 0.1;
 
 		//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
 
 	}
 	else if (dir == 1) {//up
-		bunnies[0].angleY -= 0.1;
+		at -= 0.1;
 
 		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
 
 	}
+	if (globalPickedId < 0) return;
+	for (int i = 0; i < cubes.size(); i++) {
+		if (cubes[i].uid == globalPickedId) {
+			cubes[i].angleY += at;
+			return;
+		}
+	}
+	for (int i = 0; i < bunnies.size(); i++) {
+		if (bunnies[i].uid == globalPickedId) {
+			bunnies[i].angleY += at;
+			return;
+		}
+	}
+	for (int i = 0; i < bumpies.size(); i++) {
+		if (bumpies[i].uid == globalPickedId) {
+			bumpies[i].angleY += at;
+		}
+	} 
+	
 	
 
 }
+void deleteObject() {
+	if (globalPickedId < 0) return;
+	for (int i = 0; i < cubes.size(); i++) {
+		if (cubes[i].uid == globalPickedId) {
+			cubes[i].uid = -1;
+			return;
+		}
+	}
+	for (int i = 0; i < bunnies.size(); i++) {
+		if (bunnies[i].uid == globalPickedId) {
+			bunnies[i].uid = -1;
+			return;
+		}
+	}
+	for (int i = 0; i < bumpies.size(); i++) {
+		if (bumpies[i].uid == globalPickedId) {
+			bumpies[i].uid = -1;
+		}
+	}
 
 
+
+}
 void moveObject(int dir) {
-	if (bunnies.size() <= 0) return;
-	if (dir == 0) {//up
-		bunnies[0].modelpos.y += 0.1;
-		
-		//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
-			
-	}else if (dir == 1) {//up
-		bunnies[0].modelpos.y -= 0.1;
+	if (globalPickedId < 0) return;
+	for (int i = 0; i < cubes.size(); i++) {
+		if (cubes[i].uid == globalPickedId) {
+			if (dir == 0) {//up
+				cubes[i].modelpos.y += 0.1;
 
-		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
-
+			}
+			else if (dir == 1) {//up
+				cubes[i].modelpos.y -= 0.1;
+			}
+			else if (dir == 2) {//up
+				cubes[i].modelpos.x -= 0.1;
+			}
+			else if (dir == 3) {//up
+				cubes[i].modelpos.x += 0.1;
+			}
+			return;
+		}
 	}
-	else if (dir == 2) {//up
-		bunnies[0].modelpos.x -= 0.1;
+	for (int i = 0; i < bunnies.size(); i++) {
+		if(bunnies[i].uid == globalPickedId){
+			if (dir == 0) {//up
+				bunnies[i].modelpos.y += 0.1;
 
-		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+				//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
 
+			}
+			else if (dir == 1) {//up
+				bunnies[i].modelpos.y -= 0.1;
+
+				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+			}
+			else if (dir == 2) {//up
+				bunnies[i].modelpos.x -= 0.1;
+
+				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+			}
+			else if (dir == 3) {//up
+				bunnies[i].modelpos.x += 0.1;
+
+				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+			}
+			return;
+		}
 	}
-	else if (dir == 3) {//up
-		bunnies[0].modelpos.x += 0.1;
+	for (int i = 0; i < bumpies.size(); i++) {
+		if (bumpies[i].uid == globalPickedId) {
+			if (dir == 0) {//up
+				bumpies[i].modelpos.y += 0.1;
 
-		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+				//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
 
+			}
+			else if (dir == 1) {//up
+				bumpies[i].modelpos.y -= 0.1;
+
+				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+			}
+			else if (dir == 2) {//up
+				bumpies[i].modelpos.x -= 0.1;
+
+				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+			}
+			else if (dir == 3) {//up
+				bumpies[i].modelpos.x += 0.1;
+
+				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+
+			}
+		}
 	}
+	
+	
 
 }
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -133,14 +278,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     {
         case GLFW_KEY_1:
             if (action == GLFW_PRESS){
-                // Cube hi(vertextPosition,indices);
-                // cubes.push_back(hi);
+                Cube hi;
+				hi.uid = total_object++;
+				hi.shading_mode = shading_mode;
+                cubes.push_back(hi);
             }
             break;
         case GLFW_KEY_2:
             if (action == GLFW_PRESS){
                 Bunny bun("../data/bunny.off");
 				bun.shading_mode = shading_mode;
+				bun.uid = total_object++;
 				bun.calcNormal();
 				bun.pushVec();
                 bunnies.push_back(bun);
@@ -150,31 +298,41 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             if (action == GLFW_PRESS){
                 Bumpy bum("../data/bumpy_cube.off");
 				bum.shading_mode = shading_mode;
+				bum.uid = total_object++;
 				bum.calcNormal();
 				bum.pushVec();
                 bumpies.push_back(bum);
             }
 			break;
-        case GLFW_KEY_Z:
+        case GLFW_KEY_T:
             if (action == GLFW_PRESS){
-                
+				deleteObject();
             }
+			break;
 		case GLFW_KEY_P:
 			if (action == GLFW_PRESS) {
-				//vertextPosition.clear();
-				//indices.clear();
+				display_mode = 2;
+				cubes.clear();
 				bunnies.clear();
 				bumpies.clear();
 				shading_mode = 1;
 			}
 			break;
 		case GLFW_KEY_F:
+			
 			if (action == GLFW_PRESS) {
+				display_mode = 1;
 				//vertextPosition.clear();
 				//indices.clear();
+				cubes.clear();
 				bunnies.clear();
 				bumpies.clear();
 				shading_mode = 0;
+			}
+			break;
+		case GLFW_KEY_N:
+			if (action == GLFW_PRESS) {
+				display_mode = 0;
 			}
 			break;
 		case GLFW_KEY_W:
@@ -188,11 +346,18 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 		case GLFW_KEY_D:
 			moveObject(3);
+			break;
 		case GLFW_KEY_E:
 			rotateObject(0);
 			break;
 		case GLFW_KEY_R:
 			rotateObject(1);
+			break;
+		case GLFW_KEY_G:
+			scaleObject(0);
+			break;
+		case GLFW_KEY_H:
+			scaleObject(1);
 			break;
 		case GLFW_KEY_UP:
 			view = glm::translate(view, glm::vec3(0, 0.1, .00));
@@ -284,7 +449,7 @@ int main(void)
     VAO.init();
     VAO.bind();
 
-    EBO ebo;
+   
     ebo.init();
     ebo.bind();
 
@@ -298,8 +463,37 @@ int main(void)
     // Initialize the OpenGL Program
     // A program controls the OpenGL pipeline and it must contains
     // at least a vertex shader and a fragment shader to be valid
-    Program program;
-    const GLchar* vertex_shader =
+	
+	const GLchar* pickvertex_shader =
+		"#version 150 core\n"
+		"in vec3 position; \n"
+		"in vec3 normal;\n"
+		"out vec3 Normal;\n"
+		"uniform mat4 MVP; \n"
+		"void main() {\n"
+		"	Normal = normal;\ngl_Position = MVP * vec4(position, 1); \n"
+		"}\n";
+
+	const GLchar* pickfragment_shader =
+		"#version 150 core\n"
+		"out vec4 outColor; \n"
+	"uniform vec3 PickingColor; \n"
+	"void main() {\n"
+	"	outColor = vec4(PickingColor,1); \n"
+	"}\n";
+	programPick.init(pickvertex_shader, pickfragment_shader, "outColor");
+	check_gl_error();
+	programPick.bind();
+	check_gl_error();
+
+	// The vertex shader wants the position of the vertices as an input.
+	// The following line connects the VBO we defined above with the position "slot"
+	// in the vertex shader
+	//programPick.bindVertexAttribArray("normal", VBO);
+	programPick.bindVertexAttribArray("position", VBO);
+	
+
+		const GLchar* vertex_shader =
 		"#version 150 core\n"
 		"in vec3 position;\n"
 		"in vec3 normal;\n"
@@ -354,6 +548,7 @@ int main(void)
 		"uniform vec3 lightColor;\n"
 		"uniform vec3 objectColor;\n"
 		"uniform int shading_mode;\n"
+		"uniform int display_mode;\n"
 
 		"void main()\n"
 		"{"
@@ -380,6 +575,7 @@ int main(void)
 		"	}else{\n"
 		"		outColor = vec4(result, 1.0);\n"
 		"	}\n"
+		"if(display_mode==1){outColor = vec4(1,0,0, 1.0);}\n"
 
 		"}\n";
 	 
@@ -401,7 +597,7 @@ int main(void)
     glfwSetKeyCallback(window, key_callback);
 
     // Register the mouse callback
-    // glfwSetMouseButtonCallback(window, mouse_button_callback);
+    //glfwSetMouseButtonCallback(window, mouse_button_callback);
 
     // Update viewport
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -419,10 +615,15 @@ int main(void)
         // Bind your VAO (not necessary if you have only one)
         VAO.bind();
         ebo.bind();
-
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
+			
+			
+			globalPickedId = bumpies[1].uid;
+		}
         // Bind your program
         program.bind();
-
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
         // Set the uniform value depending on the time difference
         auto t_now = std::chrono::high_resolution_clock::now();
         float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
@@ -482,25 +683,42 @@ int main(void)
 
        
 
-       // glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-
+		if (display_mode == 0) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+		glUniform1i(program.uniform("display_mode"), 0);
         
         
         for (int i = 0; i < cubes.size(); i++){
-			std::vector<glm::vec3> vertextPosition;
-			std::vector<GLuint> indices;
-			
+			if (cubes[i].uid == -1) {
+				continue;
+			}
+			VBO.update(cubes[i].posvec);
+			ebo.update(cubes[i].indvec);
+			auto model = glm::translate(view, cubes[i].modelpos);
+			model = glm::rotate(model, cubes[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			float objsize = cubes[i].objsize;
+			model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
+			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
             glDrawElements(GL_TRIANGLES, cubes[i].indcount, GL_UNSIGNED_INT, (GLvoid*)(cubes[i].indstart*sizeof(GL_UNSIGNED_INT)));
         }
 
 
         for (int i = 0; i < bunnies.size();i++){      
-		 
+			if (bunnies[i].uid == -1) {
+				continue;
+			}
+
 			
 			VBO.update(bunnies[i].posvec);
 			ebo.update(bunnies[i].indvec);
 			auto model = glm::translate(view, bunnies[i].modelpos);
 			model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			float objsize = bunnies[i].objsize;
+			model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
 			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
 			//VBO.updateN(bunnies[i].norms);
 			//glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(bunnies[0].model));
@@ -508,19 +726,80 @@ int main(void)
         }
 
         for (int i = 0; i < bumpies.size();i++){     
+			if (bumpies[i].uid == -1) {
+				continue;
+			}
+
 			VBO.update(bumpies[i].posvec);
 			ebo.update(bumpies[i].indvec);
 			auto model = glm::translate(view, bumpies[i].modelpos);
+			model = glm::rotate(model, bumpies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			float objsize = bumpies[i].objsize;
+			model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
+
 			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
             glDrawElements(GL_TRIANGLES, bumpies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bumpies[i].indstart)*sizeof(GL_UNSIGNED_INT)));
         }
+		if (display_mode == 1) {
+			glUniform1i(program.uniform("display_mode"), 1);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			for (int i = 0; i < cubes.size(); i++) {
+				if (cubes[i].uid == -1) {
+					continue;
+				}
+				VBO.update(cubes[i].posvec);
+				ebo.update(cubes[i].indvec);
+				auto model = glm::translate(view, cubes[i].modelpos);
+				model = glm::rotate(model, cubes[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+				float objsize = cubes[i].objsize;
+				model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
+				glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+				glDrawElements(GL_TRIANGLES, cubes[i].indcount, GL_UNSIGNED_INT, (GLvoid*)(cubes[i].indstart * sizeof(GL_UNSIGNED_INT)));
+			}
 
+
+			for (int i = 0; i < bunnies.size(); i++) {
+				if (bunnies[i].uid == -1) {
+					continue;
+				}
+
+
+				VBO.update(bunnies[i].posvec);
+				ebo.update(bunnies[i].indvec);
+				auto model = glm::translate(view, bunnies[i].modelpos);
+				model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+				float objsize = bunnies[i].objsize;
+				model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
+				glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+				//VBO.updateN(bunnies[i].norms);
+				//glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(bunnies[0].model));
+				glDrawElements(GL_TRIANGLES, bunnies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bunnies[i].indstart) * sizeof(GL_UNSIGNED_INT)));
+			}
+
+			for (int i = 0; i < bumpies.size(); i++) {
+				if (bumpies[i].uid == -1) {
+					continue;
+				}
+
+				VBO.update(bumpies[i].posvec);
+				ebo.update(bumpies[i].indvec);
+				auto model = glm::translate(view, bumpies[i].modelpos);
+				model = glm::rotate(model, bumpies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+				float objsize = bumpies[i].objsize;
+				model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
+
+				glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+				glDrawElements(GL_TRIANGLES, bumpies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bumpies[i].indstart) * sizeof(GL_UNSIGNED_INT)));
+			}
+		}
 
         // glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
         // glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 2);
 
-
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(2);
 
         // Swap front and back buffers
         glfwSwapBuffers(window);
