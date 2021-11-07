@@ -20,6 +20,7 @@ public:
 
 	glm::vec3 modelpos;
 	float angleY;
+	float angleX;
 	float objsize;
 	int uid;
 	glm::mat4 model;
@@ -82,6 +83,7 @@ public:
 	}
     Cube(){
 		angleY = 0;
+		angleX = 0;
 		objsize = 0.1;
 		model = glm::mat4(1.0f);
 		modelpos = glm::vec3(0.0f);

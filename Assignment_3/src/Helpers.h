@@ -159,6 +159,7 @@ public:
 	std::vector<glm::vec3> pos;
 	glm::vec3 modelpos;
 	float angleY;
+	float angleX;
 	float objsize;
 
 	glm::mat4 model;
@@ -242,6 +243,7 @@ public:
     float baryx = 0;
     float baryz = 0;
 	float angleY;
+	float angleX;
 	float objsize;
 
 	glm::vec3 modelpos;

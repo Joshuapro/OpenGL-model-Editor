@@ -194,6 +194,7 @@ Bunny::Bunny(std::string url){
 	objsize = 1;
 	uid = 0;
 	angleY = 0;
+  angleX = 0;
 	model = glm::mat4(1.0f);
 	modelpos = glm::vec3(0.0f);
   std::ifstream imageFile;
@@ -386,6 +387,7 @@ void Bumpy::pushVec(){
 Bumpy::Bumpy(std::string url){
 	objsize = 1;
 	angleY = 0;
+  angleX = 0;
 	uid = 0;
 	model = glm::mat4(1.0f);
 	modelpos = glm::vec3(0.0f);

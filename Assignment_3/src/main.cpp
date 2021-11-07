@@ -133,34 +133,44 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
  }
 void rotateObject(int dir) {
 	float at = 0;
+	float dy = 0;
 	if (dir == 0) {//up
 		at += 0.1;
 
 		//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
 
 	}
-	else if (dir == 1) {//up
+	if (dir == 1) {//up
 		at -= 0.1;
 
 		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
+	}
+	if (dir == 2){
+		dy += 0.1;
+	}
 
+	if (dir == 3){
+		dy -= 0.1;
 	}
 	if (globalPickedId < 0) return;
 	for (int i = 0; i < cubes.size(); i++) {
 		if (cubes[i].uid == globalPickedId) {
 			cubes[i].angleY += at;
+			cubes[i].angleX += dy;
 			return;
 		}
 	}
 	for (int i = 0; i < bunnies.size(); i++) {
 		if (bunnies[i].uid == globalPickedId) {
 			bunnies[i].angleY += at;
+			bunnies[i].angleX += dy;
 			return;
 		}
 	}
 	for (int i = 0; i < bumpies.size(); i++) {
 		if (bumpies[i].uid == globalPickedId) {
 			bumpies[i].angleY += at;
+			bumpies[i].angleX += dy;
 		}
 	} 
 	
@@ -352,6 +362,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 		case GLFW_KEY_R:
 			rotateObject(1);
+			break;
+		case GLFW_KEY_I:
+			rotateObject(2);
+			break;
+		case GLFW_KEY_O:
+			rotateObject(3);
 			break;
 		case GLFW_KEY_G:
 			scaleObject(0);
@@ -618,7 +634,7 @@ int main(void)
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 			
 			
-			globalPickedId = bumpies[1].uid;
+			globalPickedId = 1000;
 		}
         // Bind your program
         program.bind();
@@ -700,6 +716,7 @@ int main(void)
 			ebo.update(cubes[i].indvec);
 			auto model = glm::translate(view, cubes[i].modelpos);
 			model = glm::rotate(model, cubes[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			model = glm::rotate(model, cubes[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 			float objsize = cubes[i].objsize;
 			model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
 			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -717,6 +734,7 @@ int main(void)
 			ebo.update(bunnies[i].indvec);
 			auto model = glm::translate(view, bunnies[i].modelpos);
 			model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			model = glm::rotate(model, bunnies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 			float objsize = bunnies[i].objsize;
 			model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
 			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -734,6 +752,7 @@ int main(void)
 			ebo.update(bumpies[i].indvec);
 			auto model = glm::translate(view, bumpies[i].modelpos);
 			model = glm::rotate(model, bumpies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			model = glm::rotate(model, bumpies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 			float objsize = bumpies[i].objsize;
 			model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
 
@@ -751,6 +770,7 @@ int main(void)
 				ebo.update(cubes[i].indvec);
 				auto model = glm::translate(view, cubes[i].modelpos);
 				model = glm::rotate(model, cubes[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+				model = glm::rotate(model, cubes[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 				float objsize = cubes[i].objsize;
 				model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
 				glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -768,6 +788,7 @@ int main(void)
 				ebo.update(bunnies[i].indvec);
 				auto model = glm::translate(view, bunnies[i].modelpos);
 				model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+				model = glm::rotate(model, bunnies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 				float objsize = bunnies[i].objsize;
 				model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
 				glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -785,6 +806,7 @@ int main(void)
 				ebo.update(bumpies[i].indvec);
 				auto model = glm::translate(view, bumpies[i].modelpos);
 				model = glm::rotate(model, bumpies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+				model = glm::rotate(model, bumpies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 				float objsize = bumpies[i].objsize;
 				model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
 
