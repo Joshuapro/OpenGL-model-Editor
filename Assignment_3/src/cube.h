@@ -19,6 +19,7 @@ public:
     int indcount = 0; 
 
 	glm::vec3 modelpos;
+	glm::vec3 color;
 	float angleY;
 	float angleX;
 	float objsize;
@@ -87,6 +88,8 @@ public:
 		objsize = 0.1;
 		model = glm::mat4(1.0f);
 		modelpos = glm::vec3(0.0f);
+		color = glm::vec3(0.73f);
+
 
 		calcNormal();
 		posstart = posvec.size();

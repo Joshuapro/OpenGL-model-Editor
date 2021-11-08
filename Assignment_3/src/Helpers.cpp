@@ -197,6 +197,7 @@ Bunny::Bunny(std::string url){
   angleX = 0;
 	model = glm::mat4(1.0f);
 	modelpos = glm::vec3(0.0f);
+  color = glm::vec3(0.73);
   std::ifstream imageFile;
   imageFile.open(url, std::ios::in | std::ios::binary);
   if (imageFile.is_open()){
@@ -242,7 +243,7 @@ Bunny::Bunny(std::string url){
         for(int i = 0; i < str.size(); i++){
           if (str[i] == ' '){
             if (count == 0){
-              f = stof(num) * 1.5;
+              f = stof(num) * 1.3;
               baryx += f;
               minix = min(minix,f);
               maxix = max(maxix,f);
@@ -250,7 +251,7 @@ Bunny::Bunny(std::string url){
               count += 1;
             }
             else if(count == 1){
-              second = stof(num) * 1.5;
+              second = stof(num) * 1.3;
               baryy += second;
               miniy = min(miniy,second);
               maxiy = max(maxiy,second);
@@ -261,7 +262,7 @@ Bunny::Bunny(std::string url){
             num += str[i];
           }
         }
-        third = stof(num) * 1.5;
+        third = stof(num) * 1.3;
         miniz = min(miniz,third);
         maxiz = max(maxiz,third);
         baryz += third;
@@ -389,6 +390,7 @@ Bumpy::Bumpy(std::string url){
 	angleY = 0;
   angleX = 0;
 	uid = 0;
+  color = glm::vec3(0.73);
 	model = glm::mat4(1.0f);
 	modelpos = glm::vec3(0.0f);
   std::ifstream imageFile;

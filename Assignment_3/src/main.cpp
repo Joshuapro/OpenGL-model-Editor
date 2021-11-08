@@ -76,7 +76,57 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
      double xworld = ((xpos/double(width))*2)-1;
      double yworld = (((height-1-ypos)/double(height))*2)-1; // NOTE: y axis is flipped in glfw
 
+	
+	int prev = globalPickedId;
+	
+
 	glReadPixels(xpos, height-1-ypos,1,1,GL_STENCIL_INDEX,GL_INT, &globalPickedId);
+	
+
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+		if (globalPickedId != prev && globalPickedId != 0){
+			// std::cout << globalPickedId << std::endl;
+			for (int i = 0; i < cubes.size(); i++) {
+				if (cubes[i].uid == globalPickedId) {
+					cubes[i].color = glm::vec3(0, 1, 0);
+				}
+				if (cubes[i].uid == prev) {
+					cubes[i].color = glm::vec3(0.73f);
+				}
+			}
+			for (int i = 0; i < bunnies.size(); i++) {
+				if (bunnies[i].uid == globalPickedId) {
+					bunnies[i].color = glm::vec3(0, 1, 0);
+				}
+				if (bunnies[i].uid == prev) {
+					bunnies[i].color = glm::vec3(0.73f);
+				}
+			}
+			for (int i = 0; i < bumpies.size(); i++) {
+				if (bumpies[i].uid == globalPickedId) {
+					bumpies[i].color = glm::vec3(0, 1, 0);
+				}
+				if (bumpies[i].uid == prev) {
+					bumpies[i].color = glm::vec3(0.73f);
+				}
+			}
+		}else if (globalPickedId == 0){
+			for (int i = 0; i < cubes.size(); i++) {
+				cubes[i].color = glm::vec3(0.73f);
+			}
+			for (int i = 0; i < bunnies.size(); i++) {
+				bunnies[i].color = glm::vec3(0.73f);
+			}
+			for (int i = 0; i < bumpies.size(); i++) {
+				bumpies[i].color = glm::vec3(0.73f);
+			}
+		}
+	}
+
+	
+	
+
+
  }
 
  void scaleObject(int dir) {
@@ -643,13 +693,15 @@ int main(void)
 		static float n = 0;
 		n += 0.5;
 
-		glm::vec3 lightPos(1.2f, 1.0f, -2.0f);
+		glm::vec3 lightPos(1.0f, 1.0f, -2.0f);
 		
 		glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 		glm::vec3 viewPos(0.0f, -1.0f, 0.0f);
 
+		// glm::vec3 objectColor(0.73f);
+
  
-		glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(objectColor));
+		// glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(objectColor));
 		glUniform3fv(program.uniform("lightColor"), 1, glm::value_ptr(lightColor));
 		glUniform3fv(program.uniform("viewPos"), 1, glm::value_ptr(viewPos));
 		glUniform3fv(program.uniform("lightPos"),1, glm::value_ptr(lightPos));
@@ -677,15 +729,13 @@ int main(void)
 		glUniform1i(program.uniform("display_mode"), 0);
         
 
-		std::cout << globalPickedId << std::endl;
         
         for (int i = 0; i < cubes.size(); i++){
 			if (cubes[i].uid == -1) {
 				continue;
 			}
-			
+			glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(cubes[i].color));
 			glStencilFunc(GL_ALWAYS, cubes[i].uid, -1);	
-			if (globalPickedId == cubes[i].uid) std::cout << "clicked!" << std::endl;	
 			VBO.update(cubes[i].posvec);
 			ebo.update(cubes[i].indvec);
 			auto model = glm::translate(view, cubes[i].modelpos);
@@ -702,8 +752,10 @@ int main(void)
 			if (bunnies[i].uid == -1) {
 				continue;
 			}
+
+			glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(bunnies[i].color));
 			glStencilFunc(GL_ALWAYS, bunnies[i].uid, -1);	
-			if (globalPickedId == bunnies[i].uid) std::cout << "clicked!" << std::endl;	
+			
 
 			VBO.update(bunnies[i].posvec);
 			ebo.update(bunnies[i].indvec);
@@ -722,8 +774,9 @@ int main(void)
 			if (bumpies[i].uid == -1) {
 				continue;
 			}
-			glStencilFunc(GL_ALWAYS, bumpies[i].uid, -1);	
-			if (globalPickedId == bumpies[i].uid) std::cout << "clicked!" << std::endl;	
+			glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(bumpies[i].color));
+			glStencilFunc(GL_ALWAYS, bumpies[i].uid, -1);
+		
 			VBO.update(bumpies[i].posvec);
 			ebo.update(bumpies[i].indvec);
 			auto model = glm::translate(view, bumpies[i].modelpos);

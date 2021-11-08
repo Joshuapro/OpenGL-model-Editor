@@ -158,6 +158,7 @@ public:
     float baryz = 0;
 	std::vector<glm::vec3> pos;
 	glm::vec3 modelpos;
+	glm::vec3 color;
 	float angleY;
 	float angleX;
 	float objsize;
@@ -167,6 +168,7 @@ public:
 	Bunny() {
 		model  = glm::mat4(1.0f);
 		modelpos = glm::vec3(0.0f);
+		color = glm::vec3(0.73);
 	}
     std::vector<GLuint> ind;
 
@@ -176,6 +178,7 @@ public:
     Bunny(std::string url);
 	std::vector<glm::vec3> norms;
 	std::vector<glm::vec3> phongnorms;
+	
 	glm::vec3 triangleNormal(glm::vec3 a, glm::vec3 b, glm::vec3 c)
 	{
 
@@ -245,6 +248,7 @@ public:
 	float angleY;
 	float angleX;
 	float objsize;
+	glm::vec3 color;
 
 	glm::vec3 modelpos;
 	glm::mat4 model;
