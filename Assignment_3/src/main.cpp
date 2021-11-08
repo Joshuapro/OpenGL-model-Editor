@@ -4,7 +4,7 @@
 #include "Helpers.h"
 #include "ebo.h"
 #include "cube.h"
-#include "camera.h"
+
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
@@ -30,6 +30,8 @@
 #include <iostream>
 #include <exception>
 
+
+
 int shading_mode = 1;
 int globalPickedId = -1;
 std::vector<Cube> cubes;
@@ -51,6 +53,10 @@ glm::mat4 model = glm::mat4(1.0f);
 glm::mat4 view = glm::mat4(1.0f);
 glm::mat4 proj = glm::mat4(1.0f);
 glm::vec3 objectColor(0.73f);
+glm::vec3 target(0.0f, 0.0f,0.0f);
+
+
+
 float hori = 0;
 float verti = 0;
 float r = 1;
@@ -166,14 +172,9 @@ void rotateObject(int dir) {
 	float dy = 0;
 	if (dir == 0) {//up
 		at += 0.1;
-
-		//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
-
 	}
 	if (dir == 1) {//up
 		at -= 0.1;
-
-		//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
 	}
 	if (dir == 2){
 		dy += 0.1;
@@ -226,10 +227,8 @@ void deleteObject() {
 			bumpies[i].uid = -1;
 		}
 	}
-
-
-
 }
+
 void moveObject(int dir) {
 	if (globalPickedId < 0) return;
 	for (int i = 0; i < cubes.size(); i++) {
@@ -251,58 +250,34 @@ void moveObject(int dir) {
 	}
 	for (int i = 0; i < bunnies.size(); i++) {
 		if(bunnies[i].uid == globalPickedId){
-			if (dir == 0) {//up
+			if (dir == 0) {
 				bunnies[i].modelpos.y += 0.1;
-
-				//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
-
 			}
-			else if (dir == 1) {//up
+			else if (dir == 1) {
 				bunnies[i].modelpos.y -= 0.1;
-
-				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
-
 			}
-			else if (dir == 2) {//up
+			else if (dir == 2) {
 				bunnies[i].modelpos.x -= 0.1;
-
-				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
-
 			}
-			else if (dir == 3) {//up
+			else if (dir == 3) {
 				bunnies[i].modelpos.x += 0.1;
-
-				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
-
 			}
 			return;
 		}
 	}
 	for (int i = 0; i < bumpies.size(); i++) {
 		if (bumpies[i].uid == globalPickedId) {
-			if (dir == 0) {//up
+			if (dir == 0) {
 				bumpies[i].modelpos.y += 0.1;
-
-				//bunnies[0].model = glm::translate(view, glm::vec3(0, 0.1, 0));
-
 			}
-			else if (dir == 1) {//up
+			else if (dir == 1) {
 				bumpies[i].modelpos.y -= 0.1;
-
-				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
-
 			}
-			else if (dir == 2) {//up
+			else if (dir == 2) {
 				bumpies[i].modelpos.x -= 0.1;
-
-				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
-
 			}
-			else if (dir == 3) {//up
+			else if (dir == 3) {
 				bumpies[i].modelpos.x += 0.1;
-
-				//bunnies[0].model = glm::translate(view, glm::vec3(0, -0.1, 0));
-
 			}
 		}
 	}
@@ -415,6 +390,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 		case GLFW_KEY_RIGHT:
 			view = glm::translate(view, glm::vec3(0.1, 0.0, .00));
+			break;
+		case GLFW_KEY_Z:
+			// view = glm::lookAt(viewPos, glm::vec3(0.0,0.0,0.0), glm::vec3(0.0,0.1,0.0));
+			break;
+		case GLFW_KEY_X:
+			
+		
+			break;
+		case GLFW_KEY_C:
+			break;
+		case GLFW_KEY_V:
 			break;
 		case GLFW_KEY_4:
 			objectColor = glm::vec3(1,0,0);
@@ -694,18 +680,34 @@ int main(void)
 		n += 0.5;
 
 		glm::vec3 lightPos(1.0f, 1.0f, -2.0f);
-		
-		glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 		glm::vec3 viewPos(0.0f, -1.0f, 0.0f);
+		glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+
 
 		// glm::vec3 objectColor(0.73f);
+		
+
+		// const float radius = 10.0f;
+		// float camX = sin(glfwGetTime()) * radius;
+		// float camZ = cos(glfwGetTime()) * radius;
+		// glm::mat4 view;
+		// view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0,0,0));
+
+		glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+		glm::vec3 cameraDirection = glm::normalize(viewPos - cameraTarget);
+		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f); 
+		glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+		glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
+	
+
+
+
 
  
 		// glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(objectColor));
 		glUniform3fv(program.uniform("lightColor"), 1, glm::value_ptr(lightColor));
 		glUniform3fv(program.uniform("viewPos"), 1, glm::value_ptr(viewPos));
 		glUniform3fv(program.uniform("lightPos"),1, glm::value_ptr(lightPos));
-
 		glUniform1i(program.uniform("shading_mode"), shading_mode);
 
         glUniformMatrix4fv(program.uniform("view"), 1, GL_FALSE, glm::value_ptr(view));

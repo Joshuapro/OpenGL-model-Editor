@@ -26,7 +26,7 @@ public:
 	int uid;
 	glm::mat4 model;
 	int shading_mode = 1;
-
+	int display_mode = 0;
 	std::vector<glm::vec3> posvec;
 	std::vector<GLuint> indvec;
 	std::vector<glm::vec3> norms;

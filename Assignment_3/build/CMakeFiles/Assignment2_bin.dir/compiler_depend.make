@@ -1569,7 +1569,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/_types/_nl_item.h \
   /Library/Developer/CommandLineTools/usr/include/c++/v1/__bsd_locale_defaults.h \
   /Library/Developer/CommandLineTools/usr/include/c++/v1/bitset \
-  ../src/camera.h \
   /Users/joshuayoung/desktop/base3/ext/glfw/include/GLFW/glfw3.h \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/gtc/matrix_transform.hpp \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/mat4x4.hpp \
@@ -1670,29 +1669,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/mat4x2.hpp \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/mat4x3.hpp \
   /Users/joshuayoung/desktop/base3/ext/glm/glm/gtc/type_ptr.inl \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/vector_angle.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/glm.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtc/epsilon.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/quaternion.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtc/constants.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtc/quaternion.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/ext/quaternion_exponential.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/ext/quaternion_exponential.inl \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/norm.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/geometric.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/component_wise.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/detail/setup.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/detail/qualifier.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/component_wise.inl \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/norm.inl \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/quaternion.inl \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/rotate_vector.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/transform.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtc/matrix_transform.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/transform.inl \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/ext/vector_relational.hpp \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/rotate_vector.inl \
-  /Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/vector_angle.inl \
   /Library/Developer/CommandLineTools/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/usr/include/c++/v1/filesystem \
   /Library/Developer/CommandLineTools/usr/include/c++/v1/stack \
@@ -1702,16 +1678,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 
 
 /Library/Developer/CommandLineTools/usr/include/c++/v1/sstream:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/rotate_vector.inl:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/component_wise.inl:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/norm.hpp:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/quaternion.hpp:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/vector_angle.hpp:
 
 /Users/joshuayoung/desktop/base3/ext/glm/glm/gtc/type_ptr.inl:
 
@@ -1848,8 +1814,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/xlocale/_wchar.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/xlocale/_string.h:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/vector_angle.inl:
 
 /Users/joshuayoung/desktop/base3/ext/glm/glm/mat3x3.hpp:
 
@@ -2033,8 +1997,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 
 /Users/joshuayoung/desktop/base3/ext/glm/glm/detail/type_mat3x2.inl:
 
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/quaternion.inl:
-
 /Users/joshuayoung/desktop/base3/ext/glm/glm/detail/type_mat3x2.hpp:
 
 /Users/joshuayoung/desktop/base3/ext/glm/glm/ext/matrix_double3x2.hpp:
@@ -2199,10 +2161,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/sys/_types/_uintptr_t.h:
 
-/Users/joshuayoung/desktop/base3/ext/glm/glm/ext/vector_bool2.hpp:
-
-../src/camera.h:
-
 /Library/Developer/CommandLineTools/usr/include/c++/v1/ratio:
 
 /Library/Developer/CommandLineTools/usr/include/c++/v1/climits:
@@ -2307,8 +2265,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/mach/machine/_structs.h:
 
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/transform.hpp:
-
 /Users/joshuayoung/desktop/base3/ext/glm/glm/detail/type_mat4x4.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/i386/signal.h:
@@ -2326,8 +2282,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 /Library/Developer/CommandLineTools/usr/include/c++/v1/string.h:
 
 /Library/Developer/CommandLineTools/usr/include/c++/v1/__bsd_locale_defaults.h:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/component_wise.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/sys/cdefs.h:
 
@@ -2357,9 +2311,9 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 
 /Library/Developer/CommandLineTools/usr/include/c++/v1/fstream:
 
-/Users/joshuayoung/desktop/base3/ext/glm/glm/ext/quaternion_exponential.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/sys/_types/_time_t.h:
+
+/Users/joshuayoung/desktop/base3/ext/glm/glm/ext/vector_bool2.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/stdint.h:
 
@@ -2433,8 +2387,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 
 /Library/Developer/CommandLineTools/usr/include/c++/v1/cfloat:
 
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/norm.inl:
-
 /Users/joshuayoung/desktop/base3/ext/glm/glm/detail/setup.hpp:
 
 /Users/joshuayoung/desktop/base3/ext/glm/glm/ext/vector_int4_sized.hpp:
@@ -2444,8 +2396,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/i386/_mcontext.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/_types/_uintmax_t.h:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/rotate_vector.hpp:
 
 /Users/joshuayoung/desktop/base3/ext/glm/glm/gtc/matrix_transform.hpp:
 
@@ -2511,8 +2461,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/sys/_types/_clock_t.h:
 
-/Users/joshuayoung/desktop/base3/ext/glm/glm/ext/quaternion_exponential.inl:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk/usr/include/AvailabilityVersions.h:
 
 /Users/joshuayoung/desktop/base3/ext/glm/glm/ext/matrix_double3x3_precision.hpp:
@@ -2572,8 +2520,6 @@ CMakeFiles/Assignment2_bin.dir/src/main.cpp.o: ../src/main.cpp \
 /Users/joshuayoung/desktop/base3/ext/glm/glm/ext/vector_double2.hpp:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include/float.h:
-
-/Users/joshuayoung/desktop/base3/ext/glm/glm/gtx/transform.inl:
 
 /Library/Developer/CommandLineTools/usr/include/c++/v1/__string:
 
