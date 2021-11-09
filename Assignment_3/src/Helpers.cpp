@@ -459,7 +459,7 @@ Bumpy::Bumpy(std::string url){
         miniz = min(miniz,third);
         maxiz = max(maxiz,third);
         baryz += third;
-        pos.push_back(glm::vec3(f,second,third));
+        pos.push_back(glm::vec3(f*0.8,second*0.8,third*0.8));
       }else{
         string num = "";
         bool start = true;
@@ -483,9 +483,9 @@ Bumpy::Bumpy(std::string url){
     
     // cout << minix << endl;
 
-    baryy = baryy/stoi(first);
-    baryx = baryx/stoi(first);
-    baryz = baryz/stoi(first);
+    baryy = (maxiy + miniy)/2;
+    baryx = (maxix + minix)/2;
+    baryz = (maxiz + miniz)/2;
 
     for(int i = 0; i < pos.size(); i++){
       pos[i][0] = pos[i][0] - baryx;

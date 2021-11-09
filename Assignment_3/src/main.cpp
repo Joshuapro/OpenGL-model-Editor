@@ -340,8 +340,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			
 			if (action == GLFW_PRESS) {
 				display_mode = 1;
-				//vertextPosition.clear();
-				//indices.clear();
 				cubes.clear();
 				bunnies.clear();
 				bumpies.clear();
