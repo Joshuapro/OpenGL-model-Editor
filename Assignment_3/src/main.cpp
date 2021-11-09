@@ -54,6 +54,10 @@ glm::mat4 view = glm::mat4(1.0f);
 glm::mat4 proj = glm::mat4(1.0f);
 glm::vec3 objectColor(0.73f);
 glm::vec3 target(0.0f, 0.0f,0.0f);
+glm::vec3 init = glm::vec3(0.0f,0.0f,3.0f);
+glm::mat4 projection;
+bool ortho = false;
+
 
 
 
@@ -380,27 +384,21 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			scaleObject(1);
 			break;
 		case GLFW_KEY_UP:
-			view = glm::translate(view, glm::vec3(0, 0.1, .00));
-			break;
-		case GLFW_KEY_LEFT:
-			view = glm::translate(view, glm::vec3(-0.1, 0.0, .00));
-			break;
-		case GLFW_KEY_DOWN:
-			view = glm::translate(view, glm::vec3(0, -0.1, .00));
-			break;
-		case GLFW_KEY_RIGHT:
-			view = glm::translate(view, glm::vec3(0.1, 0.0, .00));
+			if (action == GLFW_PRESS){
+				ortho = !ortho;
+			}
 			break;
 		case GLFW_KEY_Z:
-			// view = glm::lookAt(viewPos, glm::vec3(0.0,0.0,0.0), glm::vec3(0.0,0.1,0.0));
+			init.x += 0.1;
 			break;
 		case GLFW_KEY_X:
-			
-		
+			init.x -= 0.1;
 			break;
 		case GLFW_KEY_C:
+			init.y += 0.1;
 			break;
 		case GLFW_KEY_V:
+			init.y -= 0.1;
 			break;
 		case GLFW_KEY_4:
 			objectColor = glm::vec3(1,0,0);
@@ -536,7 +534,7 @@ int main(void)
 
 		"uniform mat4 model;\n"
 		"uniform mat4 view;\n"
-		
+		"uniform mat4 projection;\n"
 		"uniform vec3 lightPos;\n"
 		"uniform vec3 viewPos;\n"
 		"uniform vec3 lightColor;\n"
@@ -565,7 +563,7 @@ int main(void)
 
 		"    flatColor = (ambient + diffuse + specular) * objectColor;\n"
 
-		"    gl_Position =  view *  vec4(FragPos, 1.0);\n"
+		"    gl_Position = projection * view * vec4(FragPos, 1.0);\n"
 		"}\n";
     const GLchar* fragment_shader =
 		" #version 150 core\n"
@@ -642,6 +640,8 @@ int main(void)
 
     // Camera cam(width,height,glm::vec3(0.0f,0.0f,3.0f));
 
+	
+
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
     {
@@ -679,30 +679,27 @@ int main(void)
 		static float n = 0;
 		n += 0.5;
 
-		glm::vec3 lightPos(1.0f, 1.0f, -2.0f);
+		glm::vec3 lightPos(1.0f, 1.0f, 1.0f);
 		glm::vec3 viewPos(0.0f, -1.0f, 0.0f);
 		glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
 
-		// glm::vec3 objectColor(0.73f);
-		
 
-		// const float radius = 10.0f;
-		// float camX = sin(glfwGetTime()) * radius;
-		// float camZ = cos(glfwGetTime()) * radius;
-		// glm::mat4 view;
-		// view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0,0,0));
+		view = glm::lookAt(init,glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.0,1.0,0.0));
+		if (ortho){
+			projection = glm::ortho(-2.0f, 2.0f, -1.5f ,1.5f ,0.1f, 5.0f);
+		}
+		else{
+			projection = glm::perspective(glm::radians(45.0f), (float) width / height, 0.1f, 100.0f); 
+		}
 
-		glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-		glm::vec3 cameraDirection = glm::normalize(viewPos - cameraTarget);
-		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f); 
-		glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
-		glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
+
+
 	
 
 
 
-
+		glUniformMatrix4fv(program.uniform("projection"), 1, GL_FALSE, glm::value_ptr(projection));
  
 		// glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(objectColor));
 		glUniform3fv(program.uniform("lightColor"), 1, glm::value_ptr(lightColor));
@@ -711,6 +708,7 @@ int main(void)
 		glUniform1i(program.uniform("shading_mode"), shading_mode);
 
         glUniformMatrix4fv(program.uniform("view"), 1, GL_FALSE, glm::value_ptr(view));
+		
 		
        // glUniformMatrix4fv(program.uniform("proj"), 1, GL_FALSE, glm::value_ptr(proj));
 		check_gl_error();
@@ -740,7 +738,7 @@ int main(void)
 			glStencilFunc(GL_ALWAYS, cubes[i].uid, -1);	
 			VBO.update(cubes[i].posvec);
 			ebo.update(cubes[i].indvec);
-			auto model = glm::translate(view, cubes[i].modelpos);
+			auto model = glm::translate(glm::mat4(1.0f), cubes[i].modelpos);
 			model = glm::rotate(model, cubes[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
 			model = glm::rotate(model, cubes[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 			float objsize = cubes[i].objsize;
@@ -761,7 +759,7 @@ int main(void)
 
 			VBO.update(bunnies[i].posvec);
 			ebo.update(bunnies[i].indvec);
-			auto model = glm::translate(view, bunnies[i].modelpos);
+			auto model = glm::translate(glm::mat4(1.0f), bunnies[i].modelpos);
 			model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
 			model = glm::rotate(model, bunnies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 			float objsize = bunnies[i].objsize;
@@ -781,7 +779,7 @@ int main(void)
 		
 			VBO.update(bumpies[i].posvec);
 			ebo.update(bumpies[i].indvec);
-			auto model = glm::translate(view, bumpies[i].modelpos);
+			auto model = glm::translate(glm::mat4(1.0f), bumpies[i].modelpos);
 			model = glm::rotate(model, bumpies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
 			model = glm::rotate(model, bumpies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 			float objsize = bumpies[i].objsize;
@@ -799,7 +797,7 @@ int main(void)
 				}
 				VBO.update(cubes[i].posvec);
 				ebo.update(cubes[i].indvec);
-				auto model = glm::translate(view, cubes[i].modelpos);
+				auto model = glm::translate(glm::mat4(1.0f), cubes[i].modelpos);
 				model = glm::rotate(model, cubes[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
 				model = glm::rotate(model, cubes[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 				float objsize = cubes[i].objsize;
@@ -817,7 +815,7 @@ int main(void)
 
 				VBO.update(bunnies[i].posvec);
 				ebo.update(bunnies[i].indvec);
-				auto model = glm::translate(view, bunnies[i].modelpos);
+				auto model = glm::translate(glm::mat4(1.0f), bunnies[i].modelpos);
 				model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
 				model = glm::rotate(model, bunnies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 				float objsize = bunnies[i].objsize;
@@ -835,7 +833,7 @@ int main(void)
 
 				VBO.update(bumpies[i].posvec);
 				ebo.update(bumpies[i].indvec);
-				auto model = glm::translate(view, bumpies[i].modelpos);
+				auto model = glm::translate(glm::mat4(1.0f), bumpies[i].modelpos);
 				model = glm::rotate(model, bumpies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
 				model = glm::rotate(model, bumpies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
 				float objsize = bumpies[i].objsize;

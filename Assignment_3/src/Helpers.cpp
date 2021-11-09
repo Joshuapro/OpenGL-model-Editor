@@ -290,8 +290,7 @@ Bunny::Bunny(std::string url){
     baryy = (maxiy + miniy)/2;
     baryx = (maxix + minix)/2;
     baryz = (maxiz + miniz)/2;
-    // cout << miniz << endl;
-    cout << (maxiy + miniy)/2 << endl;
+
 
     for(int i = 0; i < pos.size(); i++){
       pos[i][0] = pos[i][0] - baryx;
