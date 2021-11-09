@@ -844,9 +844,6 @@ int main(void)
 			}
 		}
 
-        // glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-
-        // glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 2);
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
