@@ -32,7 +32,7 @@
 
 
 
-int shading_mode = 1;
+int shading_mode = 2;
 int globalPickedId = -1;
 std::vector<Cube> cubes;
 std::vector<Bunny> bunnies;
@@ -289,6 +289,64 @@ void moveObject(int dir) {
 	
 
 }
+
+void change(int num){
+	if (globalPickedId < 0) return;
+	for (int i = 0; i < cubes.size(); i++) {
+		if (cubes[i].uid == globalPickedId) {
+			cubes[i].uid = -1;
+			Cube hi;
+			hi.uid = total_object++;
+			hi.shading_mode = num;
+			hi.modelpos = cubes[i].modelpos;
+			hi.color = glm::vec3(0, 1, 0);
+			hi.objsize = cubes[i].objsize;
+			globalPickedId = hi.uid;
+			hi.angleY = cubes[i].angleY;
+			hi.angleX = cubes[i].angleX;
+			cubes.push_back(hi);
+			return;
+		}
+	}
+	for (int i = 0; i < bunnies.size(); i++) {
+		if (bunnies[i].uid == globalPickedId) {
+			bunnies[i].uid = -1;
+			Bunny bun("../data/bunny.off");
+			bun.shading_mode = num;
+			bun.uid = total_object++;
+			bun.modelpos = bunnies[i].modelpos;
+			bun.color = glm::vec3(0, 1, 0);
+			bun.objsize = bunnies[i].objsize;
+			bun.angleY = bunnies[i].angleY;
+			bun.angleX = bunnies[i].angleX;
+			globalPickedId = bun.uid;
+			bun.calcNormal();
+			bun.pushVec();
+			bunnies.push_back(bun);
+			return;
+		}
+	}
+	for (int i = 0; i < bumpies.size(); i++) {
+		if (bumpies[i].uid == globalPickedId) {
+			bumpies[i].uid = -1;
+			Bumpy bum("../data/bumpy_cube.off");
+			bum.color = glm::vec3(0, 1, 0);
+			bum.shading_mode = num;
+			bum.uid = total_object++;
+			globalPickedId = bum.uid;
+			bum.modelpos = bumpies[i].modelpos;
+			bum.objsize = bumpies[i].objsize;
+			bum.angleY = bumpies[i].angleY;
+			bum.angleX = bumpies[i].angleX;
+			bum.calcNormal();
+			bum.pushVec();
+			bumpies.push_back(bum);
+			return;
+		}
+	}
+}
+
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     // Update the position of the first vertex if the keys 1,2, or 3 are pressed
@@ -329,26 +387,18 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 		case GLFW_KEY_P:
 			if (action == GLFW_PRESS) {
-				display_mode = 2;
-				cubes.clear();
-				bunnies.clear();
-				bumpies.clear();
-				shading_mode = 1;
+				change(2);
 			}
 			break;
 		case GLFW_KEY_F:
 			
 			if (action == GLFW_PRESS) {
-				display_mode = 1;
-				cubes.clear();
-				bunnies.clear();
-				bumpies.clear();
-				shading_mode = 0;
+				change(1);
 			}
 			break;
 		case GLFW_KEY_N:
 			if (action == GLFW_PRESS) {
-				display_mode = 0;
+				change(0);
 			}
 			break;
 		case GLFW_KEY_W:
@@ -718,12 +768,13 @@ int main(void)
 
        
 
-		if (display_mode == 0) {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		}
-		else {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		}
+		// if (display_mode == 0) {
+		// 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		// }
+		// else {
+		// 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		// }
+
 		glUniform1i(program.uniform("display_mode"), 0);
         
 
@@ -731,6 +782,11 @@ int main(void)
         for (int i = 0; i < cubes.size(); i++){
 			if (cubes[i].uid == -1) {
 				continue;
+			}
+			if (cubes[i].shading_mode == 0){
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			}else{
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 			glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(cubes[i].color));
 			glStencilFunc(GL_ALWAYS, cubes[i].uid, -1);	
@@ -749,6 +805,12 @@ int main(void)
         for (int i = 0; i < bunnies.size();i++){      
 			if (bunnies[i].uid == -1) {
 				continue;
+			}
+
+			if (bunnies[i].shading_mode == 0){
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			}else{
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 
 			glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(bunnies[i].color));
@@ -772,6 +834,11 @@ int main(void)
 			if (bumpies[i].uid == -1) {
 				continue;
 			}
+			if (bumpies[i].shading_mode == 0){
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			}else{
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			}
 			glUniform3fv(program.uniform("objectColor"), 1, glm::value_ptr(bumpies[i].color));
 			glStencilFunc(GL_ALWAYS, bumpies[i].uid, -1);
 		
@@ -786,61 +853,69 @@ int main(void)
 			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
             glDrawElements(GL_TRIANGLES, bumpies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bumpies[i].indstart)*sizeof(GL_UNSIGNED_INT)));
         }
-		if (display_mode == 1) {
-			glUniform1i(program.uniform("display_mode"), 1);
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-			for (int i = 0; i < cubes.size(); i++) {
-				if (cubes[i].uid == -1) {
-					continue;
-				}
-				VBO.update(cubes[i].posvec);
-				ebo.update(cubes[i].indvec);
-				auto model = glm::translate(glm::mat4(1.0f), cubes[i].modelpos);
-				model = glm::rotate(model, cubes[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
-				model = glm::rotate(model, cubes[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
-				float objsize = cubes[i].objsize;
-				model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
-				glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
-				glDrawElements(GL_TRIANGLES, cubes[i].indcount, GL_UNSIGNED_INT, (GLvoid*)(cubes[i].indstart * sizeof(GL_UNSIGNED_INT)));
+		
+		glUniform1i(program.uniform("display_mode"), 1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		for (int i = 0; i < cubes.size(); i++) {
+			if (cubes[i].uid == -1) {
+				continue;
 			}
-
-
-			for (int i = 0; i < bunnies.size(); i++) {
-				if (bunnies[i].uid == -1) {
-					continue;
-				}
-
-
-				VBO.update(bunnies[i].posvec);
-				ebo.update(bunnies[i].indvec);
-				auto model = glm::translate(glm::mat4(1.0f), bunnies[i].modelpos);
-				model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
-				model = glm::rotate(model, bunnies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
-				float objsize = bunnies[i].objsize;
-				model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
-				glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
-				//VBO.updateN(bunnies[i].norms);
-				//glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(bunnies[0].model));
-				glDrawElements(GL_TRIANGLES, bunnies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bunnies[i].indstart) * sizeof(GL_UNSIGNED_INT)));
+			if (cubes[i].shading_mode != 1){
+				continue;
 			}
-
-			for (int i = 0; i < bumpies.size(); i++) {
-				if (bumpies[i].uid == -1) {
-					continue;
-				}
-
-				VBO.update(bumpies[i].posvec);
-				ebo.update(bumpies[i].indvec);
-				auto model = glm::translate(glm::mat4(1.0f), bumpies[i].modelpos);
-				model = glm::rotate(model, bumpies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
-				model = glm::rotate(model, bumpies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
-				float objsize = bumpies[i].objsize;
-				model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
-
-				glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
-				glDrawElements(GL_TRIANGLES, bumpies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bumpies[i].indstart) * sizeof(GL_UNSIGNED_INT)));
-			}
+			VBO.update(cubes[i].posvec);
+			ebo.update(cubes[i].indvec);
+			auto model = glm::translate(glm::mat4(1.0f), cubes[i].modelpos);
+			model = glm::rotate(model, cubes[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			model = glm::rotate(model, cubes[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
+			float objsize = cubes[i].objsize;
+			model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
+			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, cubes[i].indcount, GL_UNSIGNED_INT, (GLvoid*)(cubes[i].indstart * sizeof(GL_UNSIGNED_INT)));
 		}
+
+
+		for (int i = 0; i < bunnies.size(); i++) {
+			if (bunnies[i].uid == -1) {
+				continue;
+			}
+			if (bunnies[i].shading_mode != 1){
+				continue;
+			}
+
+			VBO.update(bunnies[i].posvec);
+			ebo.update(bunnies[i].indvec);
+			auto model = glm::translate(glm::mat4(1.0f), bunnies[i].modelpos);
+			model = glm::rotate(model, bunnies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			model = glm::rotate(model, bunnies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
+			float objsize = bunnies[i].objsize;
+			model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
+			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+			//VBO.updateN(bunnies[i].norms);
+			//glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(bunnies[0].model));
+			glDrawElements(GL_TRIANGLES, bunnies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bunnies[i].indstart) * sizeof(GL_UNSIGNED_INT)));
+		}
+
+		for (int i = 0; i < bumpies.size(); i++) {
+			if (bumpies[i].uid == -1) {
+				continue;
+			}
+			if (bumpies[i].shading_mode != 1){
+				continue;
+			}
+
+			VBO.update(bumpies[i].posvec);
+			ebo.update(bumpies[i].indvec);
+			auto model = glm::translate(glm::mat4(1.0f), bumpies[i].modelpos);
+			model = glm::rotate(model, bumpies[i].angleY, glm::vec3(0.0f, 1.0f, 0.0f));
+			model = glm::rotate(model, bumpies[i].angleX, glm::vec3(1.0f, 0.0f, 0.0f));
+			float objsize = bumpies[i].objsize;
+			model = glm::scale(model, glm::vec3(objsize, objsize, objsize));
+
+			glUniformMatrix4fv(program.uniform("model"), 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, bumpies[i].indcount, GL_UNSIGNED_INT, (GLvoid*)((bumpies[i].indstart) * sizeof(GL_UNSIGNED_INT)));
+		}
+	
 
 
 		glDisableVertexAttribArray(0);

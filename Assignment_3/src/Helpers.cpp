@@ -312,7 +312,7 @@ void Bunny::pushVec(){
 		  }
           poscount += 3;
 		  posvec.push_back(pos[i]);
-		  if (shading_mode == 0) {
+		  if (shading_mode == 1) {
 			  posvec.push_back(norms[i]);
 		  }
 		  else {
@@ -320,7 +320,7 @@ void Bunny::pushVec(){
 		  }
 		  if (i + 1 >= pos.size()) break;
 		  posvec.push_back(pos[i+1]);
-		  if (shading_mode == 0) {
+		  if (shading_mode == 1) {
 			  posvec.push_back(norms[i + 1]);
 		  }
 		  else {
@@ -328,7 +328,7 @@ void Bunny::pushVec(){
 		  }
 		  posvec.push_back(pos[i+2]);
 
-		  if (shading_mode == 0) {
+		  if (shading_mode == 1) {
 			  posvec.push_back(norms[i + 2]);
 		  }
 		  else {
@@ -353,7 +353,7 @@ void Bumpy::pushVec(){
 		  }
 		  poscount += 3;
 		  posvec.push_back(pos[i]);
-		  if (shading_mode == 0) {
+		  if (shading_mode == 1) {
 			  posvec.push_back(norms[i]);
 		  }
 		  else {
@@ -361,7 +361,7 @@ void Bumpy::pushVec(){
 		  }
 		  if (i + 1 >= pos.size()) break;
 		  posvec.push_back(pos[i + 1]);
-		  if (shading_mode == 0) {
+		  if (shading_mode == 1) {
 			  posvec.push_back(norms[i + 1]);
 		  }
 		  else {
@@ -369,7 +369,7 @@ void Bumpy::pushVec(){
 		  }
 		  posvec.push_back(pos[i + 2]);
 
-		  if (shading_mode == 0) {
+		  if (shading_mode == 1) {
 			  posvec.push_back(norms[i + 2]);
 		  }
 		  else {
