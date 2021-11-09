@@ -32,6 +32,7 @@
 
 
 
+
 int shading_mode = 2;
 int globalPickedId = -1;
 std::vector<Cube> cubes;
