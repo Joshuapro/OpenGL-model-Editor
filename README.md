@@ -1,6 +1,3 @@
-# Assignment 3 Mark Down
-
-### Assignment_3 -> src -> files
 
 
 ## Key Summary Description
