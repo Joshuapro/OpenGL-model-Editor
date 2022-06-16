@@ -1,88 +1,106 @@
-# CS-GY 6533 A – Interactive Computer Graphics - Fall 2021
+# Assignment 3 Mark Down
 
-### Course Instructors
+### Assignment_3 -> src -> files
 
-*Cláudio Silva (instructor)*
 
-370 Jay Street, room 1153 
+## Key Summary Description
 
-<csilva@nyu.edu>
+* Object creation: Keys 1, 2, 3 for creating a "cube", "rabbit", "bumpy object"
+* Selection: Mouse click on object for selection
+* T for delete
+* P, F, N for phong shading, flat shading, wireframe
+* E, R, I, O for rotating the object in 4 directions
+* W, S, A, D for object movement
+* G, H for scale up and down of object
+* Key Up for switching between orth cam and perspective
+* Z, X, C, V for camera movement (ortho, persp)
 
-Office hours: Friday, 10a-12pm
 
-### Lectures:
-Thursdays, 2:00pm - 4:30pm
-Rogers Hall, Rm 325
 
-## Course Description
+## Object Creation.
 
-This course provides an introduction to the field of Computer Graphics. We will cover the basic mathematical concepts, such as 2D and 3D transformations, study the interaction of light with geometry to derive shading models, the representation of geometric data in the memory, and implement iterative rendering algorithms. We will investigate how these fundamental components are integrated into current graphics processors (GPUs) and study the corresponding programming APIs (OpenGL and GLM). This course will also include a brief introduction to C++. 
 
-Students will experiment with modern graphics programming and build small demos in C++ and OpenGL. 
 
-By the end of the course, the student must be able to: 
+![Screen Shot 2021-11-09 at 6 48 30 PM](https://user-images.githubusercontent.com/35964921/141023816-a1119f8b-4441-495b-8836-b55dd4effa7c.png)
 
-Explain and apply the fundamental mathematical concepts used in image synthesis algorithms 
+I have 3 vectors of std::vector<Cube> cubes; std::vector<Bunny> bunnies; std::vector<Bumpy> bumpies, that stored each type of object. For the bunny and the bumpy cube object, I had to read a .off file when the obj creation is called.
+  
+  
+ ## Selection.
 
-* Implement a basic real-time rendering pipeline based on rasterization 
-* Implement visual effects such as shadows and reflections on rasterization pipelines 
-* Be able to model scenes using triangulated models 
-* Develop simple graphics programs in C++ using OpenGL and GLSL 
 
-## Readings 
 
-*Textbook*:
-Fundamentals of Computer Graphics, 4th Edition
-December 18, 2015 by A K Peters/CRC Press
-Textbook - 734 Pages - 541 Color
-ISBN 9781482229394
+ 
+![Screen Shot 2021-11-09 at 6 59 32 PM](https://user-images.githubusercontent.com/35964921/141024841-0bf48b39-3c94-4f0e-bd84-050b7fee0b39.png)
+![Screen Shot 2021-11-09 at 6 59 26 PM](https://user-images.githubusercontent.com/35964921/141024856-bb0dac44-491a-47c9-b084-1cfe936628b9.png)
+  
+When clicking on the object, the object is selected. Once it is selected, the color changes to green.
+  
+I utilized the stencil buffer for object selection. The stencil buffer draws each object as id's onto the screen. Each object has its own ID, and when I click on the screen, I check if what I clicked is a match to any id in all my objects.
+  
+<img width="321" alt="Screen Shot 2021-11-09 at 7 04 47 PM" src="https://user-images.githubusercontent.com/35964921/141025520-bcebd594-1c26-4af3-8179-5a9970cedb69.png">
+  
+<img width="582" alt="Screen Shot 2021-11-09 at 7 09 07 PM" src="https://user-images.githubusercontent.com/35964921/141025723-f798da02-69b7-428e-943a-8a3e64de4d1b.png">
 
-Optional and recommended texts are:  
-* OpenGL Programming Guide 9th Ed. (8th Ed. can also be used), Addison Wesley 
-* Real Time Rendering 4th Ed., CRC Press 
+ ^ What clicked is stored into globalpickedid
 
-## Grading 
+  
+  
+ ## Delete. 
 
-This class will not have any written exams. All the grading will be based on assignments, quizzes, and class participation. We will check all assignments for plagiarism, and strictly enforce university rules. See the class syllabus for more info.
 
-## Class Discord
-To sign up click [here](https://discord.gg/PDK8DhE7P9).
+https://user-images.githubusercontent.com/35964921/141025088-1b910351-91f4-4abb-a3fb-440c2cef5ec4.MOV
+  
+  
+ ## Rendering Setting.
+  
+ 
+https://user-images.githubusercontent.com/35964921/141026815-4e7e94fd-b258-41ae-8e4a-b8a4701a722f.MOV
 
-### Acknowledgement: 
-This course is based on the computer graphics course designed by Professor Daniele Panozzo (NYU). Jonathas Costa (formely of NYU VIDA Lab) was instrumental in shaping the offerings in 2019 and 2020. 
 
-## Assignments
+  After Selecting an object, I pressed between P, F, N for changing the object render.
 
-* [General Guidelines](General_Rules/General_Rules.md) 
 
-* [Assignment 1: Images, Morphological Operators](Assignment_1/requirements/Assignment-1_Images.md) 
+## Rotation.
 
-* [Assignment 2: 2D Vector Graphics Editor](Assignment_2/requirements/Assignment-2_2D_Editor.md) 
+https://user-images.githubusercontent.com/35964921/141027180-3ed25ca2-0c87-482a-b4e0-e1c85bca8e80.MOV
 
-* [Assignment 3: 3D Scene Editor](Assignment_3/requirements/Assignment3_3D.md) 
+For each object, I had a angle x and angle y associated with it. So every time I render it, it would use the x and y adjustment.
+  
+## Object Movement.
 
-* [Assignment 4: Shadows, Reflections, and Depth Maps](Assignment_4/requirements/Assignment4.md) 
+https://user-images.githubusercontent.com/35964921/141030997-b1ea2e93-4cbf-4f04-9868-d8d89b54fdff.MOV
+  
+ Each Object has a `glm::vec3 modelpos;` assocaited
+ 
+ This is uploaded to the gpu later `auto model = glm::translate(glm::mat4(1.0f), objects[i].modelpos);`
 
-# Compilation Instructions
 
-```bash
-git clone --recursive https://github.com/nyu-cs-cy-6533-fall-2021/base # --recursive flag is necessary for dependencies
-cd Assignment_N
-mkdir build
-cd build
-cmake ../ # re-run cmake when you add/delete source files
-make
-```
+## Scale.
 
-You can substitute `cmake ../` with the following to make the program **run faster** (optimized code generation)
+https://user-images.githubusercontent.com/35964921/141031002-1278d23a-bd30-4bdd-86c7-729a3a61d321.MOV
+  
+ Each Object has a `objsize` assocaited
+  
+later `model = glm::scale(model, glm::vec3(objsize, objsize, objsize));`
+ 
+  
 
-```bash
-cmake -DCMAKE_BUILD_TYPE=Release ../ # use this cmake command instead of the previous linefor faster run
-```
+ 
+  
+## Orthographic Camera.
 
-If you are looking for an IDE, I suggest to use [VSCode](https://code.visualstudio.com) or [CLion](https://www.jetbrains.com/clion/).
-# assignment-3-3d-scene-editor-Joshuapro
-# assignment-3-3d-scene-editor-Joshuapro
-# assignment-3-3d-scene-editor-Joshuapro
-# assignment-3-3d-scene-editor-Joshuapro
-# assignment-3-3d-scene-editor-Joshuapro
+https://user-images.githubusercontent.com/35964921/141032245-cc1a0445-6047-450d-9e2a-07932805765e.MOV
+
+
+
+
+ ## Perspective Camera.
+
+ 
+https://user-images.githubusercontent.com/35964921/141032258-4b893c71-242d-4e39-89fb-ee3f56c35a16.MOV
+
+
+For Both Orthographic Camera and Perspective Camera, I made another matrix called projection and uploaded it to the gpu.
+
+
